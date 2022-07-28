@@ -4,35 +4,29 @@
    deser1@i2c3 0x30:    ncn4
    deser2@i2c3 0x32:    ncn4
 */
-
-&i2c2 {
+&i2c1 {
     #address-cells = <1>;
     #size-cells = <0>;
 
-    deser0: ti954@3d {
-        compatible = "bst,ti-deser-hub";
-        type = "ti954";
-        reg = <0x3d>;
+    deser0: max96712@28 {
+        compatible = "bst,maxim-deser-hub";
+        type = "max96712";
+        reg = <0x28>;
+        i2c-port = <0>;
+        csi2-port = <0>;
         lane-speed = <1600>;
-        pdb-gpio = <&porta 29 0>;
-    };
-};
-
-&i2c3 {
-    #address-cells = <1>;
-    #size-cells = <0>;
-
-    deser1: ncn4@30 {
-        compatible = "bst,n4";
-        reg = <0x30>;
-        reset-gpio = <&porta 19 0>;
+        regs = <0x40>;
+        data-type = <0x2d>;
+        trigger-mode = <1>;                 /*0:default,1:internal,2:external*/
+        trigger-fps = <20>;
+        trigger-rx-gpio = <1>;
+        maxim,hsync-invert = <0>;
+        maxim,vsync-invert = <0>;
+        maxim,link-mode = "GMSL2";
+        pdb-gpio = <&porta 20 0>;
     };
 
-    deser2: ncn4@32 {
-        compatible = "bst,n4";
-        reg = <0x32>;
-        reset-gpio = <&porta 20 0>;
-    };
-};
+ };
 
-#include "../common/a1000b-deser.dtsi"
+
+#include "../common/a1000b-deser_pat.dtsi"

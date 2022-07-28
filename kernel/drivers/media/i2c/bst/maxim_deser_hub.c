@@ -1159,6 +1159,7 @@ static int maxim_detect_deserial(struct maxim_hub_priv *priv)
 static int maxim_hub_probe(struct i2c_client *client,
 			   const struct i2c_device_id *id)
 {
+	printk(KERN_ERR "--------[yanny] maxim 9671x probe....\n");
 	int ret;
 	struct maxim_hub_priv *priv;
 	int pdb_gpio = -1;
