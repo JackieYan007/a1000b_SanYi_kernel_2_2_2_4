@@ -1,0 +1,15 @@
+# OP-TEE Trusted Execution Environment Configuration
+config BST_OPTEE
+	tristate "BST-OP-TEE"
+	depends on ARCH_BST
+	help
+	  This implements the BST-OP-TEE Trusted Execution Environment (TEE)
+	  driver.
+
+config OPTEE_SHM_NUM_PRIV_PAGES
+	int "Private Shared Memory Pages"
+	default 1
+	depends on BST_OPTEE
+	help
+	  This sets the number of private shared memory pages to be
+	  used by BST-OP-TEE TEE driver.
