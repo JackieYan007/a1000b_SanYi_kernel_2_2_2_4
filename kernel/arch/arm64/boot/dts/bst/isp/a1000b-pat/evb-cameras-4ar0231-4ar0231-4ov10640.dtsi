@@ -1,9 +1,6 @@
 /* 
-   default camera config for evb
    ar0231-yuv*4     1920x1080 
-   ov2311-raw*2     1600x1300 
-   ar0231-raw*1     1920x1080 
-   imx390-raw*1     1920x1080 
+   ar0231-yuv*4     1920x1080 
    ov10640-yuv*4    1280x720
 */
 
@@ -13,7 +10,7 @@
         ser-alias-id = <0x40>;
         sensor-alias-id = <0x50>;
 
-        #include "../cameras/ox3c_raw_1920x1080.dtsi"
+        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
 
         port {
             camera_0_out: endpoint@0 {
@@ -27,7 +24,7 @@
         ser-alias-id = <0x41>;
         sensor-alias-id = <0x51>;
 
-        #include "../cameras/ox3c_raw_1920x1080.dtsi"
+        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
 
         port {
             camera_1_out: endpoint@0 {
@@ -41,7 +38,7 @@
         ser-alias-id = <0x42>;
         sensor-alias-id = <0x52>;
 
-        #include "../cameras/ox3c_raw_1920x1080.dtsi"
+        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
 
         port {
             camera_2_out: endpoint@0 {
@@ -55,7 +52,7 @@
         ser-alias-id = <0x43>;
         sensor-alias-id = <0x53>;
 
-        #include "../cameras/ox3c_raw_1920x1080.dtsi"
+        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
 
         port {
             camera_3_out: endpoint@0 {

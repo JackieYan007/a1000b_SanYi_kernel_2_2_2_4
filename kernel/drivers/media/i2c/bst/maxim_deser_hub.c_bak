@@ -41,46 +41,7 @@
 
 #define MAXIM_HUB_DEBUG
 static unsigned long crossbar = 0xba9876543210;   /* default crossbar */
-static int read_byte(struct maxim_hub_priv *priv)
-{
-        int i;
-        struct i2c_adapter *adap;
-        struct deser_hub_dev *hub;
-        uint8_t value;
-        hub = &priv->hub;
-        adap = hub->i2c_client->adapter;
-#ifdef MAXIM_HUB_DEBUG
-        dev_info(hub->dev, "%s() %d\n", __func__, __LINE__);
-#endif
-        //modify serlias i2c address
-      // for (i = 0; i < 4090; i++) {
-            //     max96712_reg_read(hub, i, &value);
-	//	pr_info("xq[%x]=%x ,",0x474,value);
-           //      }
-              max96712_reg_read(hub, 0x0474, &value);
-		pr_info("xq[%x]=%x ,",0x474,value);
 
-               max96712_reg_read(hub, 0x044A, &value);
-	pr_info("xq[%x]=%x ,",0x44A,value);
-        
-               max96712_reg_read(hub, 0x0330, &value);
-		pr_info("xq[%x]=%x ,",0x330,value);
-        
-                max96712_reg_read(hub, 0x0320, &value);
-		pr_info("xq[%x]=%x ,",0x320,value);
-		
-               max96712_reg_read(hub, 0x0313, &value);
-		pr_info("xq[%x]=%x ,",0x313,value);
-		max96712_reg_read(hub, 0x01, &value);
-		pr_info("xq[%x]=%x ,",0x1,value);
-		max96712_reg_read(hub, 0x10, &value);
-	        pr_info("xq[%x]=%x ,",0x10,value);
-               max96712_reg_read(hub, 0x29,&value);
-	         pr_info("xq[%x]=%x ,",0x29,value);
-		     max96712_reg_read(hub, 0x13,&value);
-	         pr_info("xq[%x]=%x ,",0x13,value);
-		return 0;
-}
 static int set_max96712_csi_phy_speed(struct maxim_hub_priv *priv)
 {
 	struct deser_hub_dev *hub;
@@ -94,10 +55,10 @@ static int set_max96712_csi_phy_speed(struct maxim_hub_priv *priv)
 	}
 	lane_speed =  0x20 | (priv->lane_speed / 100);
 
-	max96712_reg_write(hub, 0x31d, lane_speed);
-	max96712_reg_write(hub, 0x320, lane_speed);
-	max96712_reg_write(hub, 0x323, lane_speed);
-	max96712_reg_write(hub, 0x326, lane_speed);
+	max96712_reg_write(hub, 0x415, lane_speed);
+	max96712_reg_write(hub, 0x418, lane_speed);
+	max96712_reg_write(hub, 0x41b, lane_speed);
+	max96712_reg_write(hub, 0x41e, lane_speed);
 
 	return 0;
 }
@@ -107,65 +68,63 @@ static int max_gmsl2_config(struct maxim_hub_priv *priv)
 	struct deser_hub_dev *hub =  &priv->hub;
 	int offset = 0;
 	int i = 0;
-       
-	//write_reg(hub->i2c_client, 0x00, 0x90); //Disable MIPI CSI-2
-	write_reg(hub->i2c_client, 0x313, 0x00); //Disable MIPI CSI-2
-          write_reg(hub->i2c_client, 0x10, 0x91);	// Enable all 4 Links in
-        //max96712_reg_read(hub, 0x10, 0x0);
-	write_reg(hub->i2c_client, 0x0474, 0x18);
-	msleep(50);
+
+	write_reg(hub->i2c_client, 0x40b, 0x00); //Disable MIPI CSI-2
+	write_reg(hub->i2c_client, 0x06, 0xFF);	// Enable all 4 Links in
+	//write_reg(hub->i2c_client, 0x06, 0xF0);
+	// mdelay(10);
 	// Video Pipe Selection
-       //	write_reg(hub->i2c_client, 0xF0, 0x62); //40/62 // pipe X in link B to video pipe 1)pipe X in link A to video pipe 0
-	//write_reg(hub->i2c_client, 0xF1, 0xea); //ea/c8 // pipe X in link D to video pipe 3)pipe X in link C to video pipe 2
+	write_reg(hub->i2c_client, 0xF0, 0x62); //40/62 // pipe X in link B to video pipe 1)pipe X in link A to video pipe 0
+	write_reg(hub->i2c_client, 0xF1, 0xea); //ea/c8 // pipe X in link D to video pipe 3)pipe X in link C to video pipe 2
 	//register16_write(hub,0xF2,0x51);	// pipe Y in link B to video pipe 4)pipe Y in link A to video pipe 5
 	//register16_write(hub,0xF3,0xD9); // pipe Y in link D to video pipe 6)pipe Y in link C to video pipe 7
-	//write_reg(hub->i2c_client, 0xF4, 0x0F); // Turn on 4 pipes
+	write_reg(hub->i2c_client, 0xF4, 0x0F); // Turn on 4 pipes
 
 	// Efficiency updates (disable HEARTBEAT Mode); for image data pipes 0-3
-       write_reg(hub->i2c_client, 0x01, 0xc1);
-//	write_reg(hub->i2c_client, 0x0118, 0x0A);
-//	write_reg(hub->i2c_client, 0x012A, 0x0A);
-//	write_reg(hub->i2c_client, 0x013C, 0x0A);
+	write_reg(hub->i2c_client, 0x0106, 0x0A);
+	write_reg(hub->i2c_client, 0x0118, 0x0A);
+	write_reg(hub->i2c_client, 0x012A, 0x0A);
+	write_reg(hub->i2c_client, 0x013C, 0x0A);
 
-//	for (i = 0; i < hub->max_port; i++) {
-//		offset = 0x40 * i;
+	for (i = 0; i < hub->max_port; i++) {
+		offset = 0x40 * i;
 		// YUV422 8bit);video pipe 0,1,2,3);map FS/FE
-//		write_reg(hub->i2c_client, 0x090B + offset, 0x07);
-//		write_reg(hub->i2c_client, 0x092D + offset, 0x15);// map to MIPI Controller 1
-//		write_reg(hub->i2c_client, 0x090D + offset, 0x2d);
-//		write_reg(hub->i2c_client, 0x090E + offset, 0x2d|(i<<6));// map to VC0-3
-//		write_reg(hub->i2c_client, 0x090F + offset, 0x00);
-//		write_reg(hub->i2c_client, 0x0910 + offset, i<<6);
-//		write_reg(hub->i2c_client, 0x0911 + offset, 0x01);
-//		write_reg(hub->i2c_client, 0x0912 + offset, (i<<6)|0x01);
-//	}
+		write_reg(hub->i2c_client, 0x090B + offset, 0x07);
+		write_reg(hub->i2c_client, 0x092D + offset, 0x15);// map to MIPI Controller 1
+		write_reg(hub->i2c_client, 0x090D + offset, 0x2d);
+		write_reg(hub->i2c_client, 0x090E + offset, 0x2d|(i<<6));// map to VC0-3
+		write_reg(hub->i2c_client, 0x090F + offset, 0x00);
+		write_reg(hub->i2c_client, 0x0910 + offset, i<<6);
+		write_reg(hub->i2c_client, 0x0911 + offset, 0x01);
+		write_reg(hub->i2c_client, 0x0912 + offset, (i<<6)|0x01);
+	}
 	// MIPI PHY Setting
 	// Set Des in 2x4 mode
-	write_reg(hub->i2c_client, 0x330, 0x04);
+	write_reg(hub->i2c_client, 0x08A0, 0x04);
 	// Set Lane Mapping for 4-lane port A
-	//write_reg(hub->i2c_client, 0x08A3, 0xE4);
-	//write_reg(hub->i2c_client, 0x08A4, 0xE4);
+	write_reg(hub->i2c_client, 0x08A3, 0xE4);
+	write_reg(hub->i2c_client, 0x08A4, 0xE4);
 	// Set 4 lane D-PHY
-	write_reg(hub->i2c_client, 0x044A, 0xD0);
+	write_reg(hub->i2c_client, 0x090A, 0xC0);
+	write_reg(hub->i2c_client, 0x094A, 0xC0);
+	write_reg(hub->i2c_client, 0x098A, 0xC0);
+	write_reg(hub->i2c_client, 0x09CA, 0xC0);
 	// Turn on MIPI PHYs
-	write_reg(hub->i2c_client, 0x0320, 0x2C);
-	write_reg(hub->i2c_client, 0x0313, 0x02);
-	read_byte(priv);
+	write_reg(hub->i2c_client, 0x08A2, 0xF0);
 	// Hold DPLL in reset (config_soft_rst_n = 0); before changing the rate
-	//write_reg(hub->i2c_client, 0x1C00, 0xF4);
-	//write_reg(hub->i2c_client, 0x1D00, 0xF4);
-	//write_reg(hub->i2c_client, 0x1E00, 0xF4);
-	//write_reg(hub->i2c_client, 0x1F00, 0xF4);
+	write_reg(hub->i2c_client, 0x1C00, 0xF4);
+	write_reg(hub->i2c_client, 0x1D00, 0xF4);
+	write_reg(hub->i2c_client, 0x1E00, 0xF4);
+	write_reg(hub->i2c_client, 0x1F00, 0xF4);
 	// Set Data rate to be 1500Mbps/lane for port A and enable software override
 	set_max96712_csi_phy_speed(priv);
 	// Release reset to DPLL (config_soft_rst_n = 1);
-	//write_reg(hub->i2c_client, 0x1C00, 0xF5);
-	//write_reg(hub->i2c_client, 0x1D00, 0xF5);
-	//write_reg(hub->i2c_client, 0x1E00, 0xF5);
-	//write_reg(hub->i2c_client, 0x1F00, 0xF5);
+	write_reg(hub->i2c_client, 0x1C00, 0xF5);
+	write_reg(hub->i2c_client, 0x1D00, 0xF5);
+	write_reg(hub->i2c_client, 0x1E00, 0xF5);
+	write_reg(hub->i2c_client, 0x1F00, 0xF5);
 	// PHY 2 copy PHY 0 output
 	//write_reg(hub->i2c_client,0x08A9,0xC8);	//C0
-	msleep(50);  // Delay 50eds
 	return 0;
 }
 
@@ -194,26 +153,41 @@ static int modify_serdes_address(struct maxim_hub_priv *priv)
 	int i;
 	struct i2c_adapter *adap;
 	struct deser_hub_dev *hub;
+	uint8_t mask, value;
 
 	hub = &priv->hub;
 	adap = hub->i2c_client->adapter;
 #ifdef MAXIM_HUB_DEBUG
 	dev_info(hub->dev, "%s() %d\n", __func__, __LINE__);
 #endif
+	//disable all remote port
+	max96712_reg_write(hub, 0x03, 0xff);
+	mdelay(200);
 	//modify serlias i2c address
 	for (i = 0; i < hub->max_port; i++) {
-		// if (!hub->chn[i].camera_bound || (hub->chn[i].cam_dev == NULL)) {
-		//	pr_info("%s() cam_dev [%d] is NULL, break\n", __func__, i);
-		//	continue;
-		// }
-		msleep(100);
+		if (!hub->chn[i].camera_bound || (hub->chn[i].cam_dev == NULL)) {
+			pr_info("%s() cam_dev [%d] is NULL, break\n", __func__, i);
+			continue;
+		}
+		if (!is_gmsl2_video_connected(hub, i))
+			continue;
+
+		mask = (~(1 << (2 * i))); // enable port0
+		max96712_reg_read(hub, 0x03, &value);
+		max96712_reg_write(hub, 0x03, value & mask);
+
+#ifdef MAXIM_HUB_DEBUG
+		dev_info(hub->dev, "===== value = %x, mask = %x\n", value, mask);
+		dev_info(hub->dev, "modify test ser_addr=0x%x,ser_alias=0x%x\n",
+				priv->ser_addr[i], priv->ser_alias_addr[i]);
+		dev_info(hub->dev, "modify test ser_alias_addr=0x%x,sensor_alias_addr=0x%x\n",
+				priv->ser_alias_addr[i], priv->sensor_alias_addr[i]);
+#endif
 		write_register(adap, priv->ser_addr[i], 0x0000, (priv->ser_alias_addr[i] << 1));
 		write_register(adap, priv->ser_alias_addr[i], 0x0042, (priv->sensor_alias_addr[i] << 1));
 		write_register(adap, priv->ser_alias_addr[i], 0x0043, (priv->sensor_addr[i] << 1));
-		dev_info(hub->dev, " xq %s() %x  %x\n", __func__, (priv->ser_alias_addr[i] << 1),(priv->sensor_addr[i] << 1));
 	}
-	usleep_range(1000, 2000);
-	//max96712_reg_write(hub, 0x06, 0xff);
+	mdelay(20);
 	return 0;
 }
 
@@ -229,8 +203,8 @@ static void maxim_hub_set_mipi_output(struct deser_hub_dev *hub, bool enable)
 	switch (hub->type) {
 	case DESER_TYPE_MAX96712:
 	case DESER_TYPE_MAX96722:
-		//max96712_reg_read(hub, 0x040B, &value);
-		max96712_reg_write(hub, 0x0313,0x02);
+		max96712_reg_read(hub, 0x040B, &value);
+		max96712_reg_write(hub, 0x040B, value | (is_enable << 1));
 		break;
 	default:
 		dev_err(hub->dev, "%s() Not Support\n", __func__);
@@ -356,6 +330,7 @@ static int config_max_fix_rate(struct maxim_hub_priv *priv)
 {
 
 	struct deser_hub_dev *hub =  &priv->hub;
+	//link_rate
 	if (priv->rx_rate == 6) {
 		max96712_reg_write(hub, 0x040b, 0x00);
 		max96712_reg_write(hub, 0x0010, 0x22);
@@ -364,7 +339,7 @@ static int config_max_fix_rate(struct maxim_hub_priv *priv)
 		max96712_reg_write(hub, 0x0018, 0x0f);
 		max96712_reg_write(hub, 0x0006, 0xff);
 		max96712_reg_write(hub, 0x0018, 0x0f);
-	}else if (priv->rx_rate == 3) {
+	} else if (priv->rx_rate == 3) {
 		max96712_reg_write(hub, 0x040b, 0x00);
 		max96712_reg_write(hub, 0x0010, 0x11);
 		max96712_reg_write(hub, 0x0018, 0x0f);
@@ -387,7 +362,7 @@ static int config_max_fix_rate(struct maxim_hub_priv *priv)
 
 static void max967XX_replicate_mode(struct deser_hub_dev *hub)
 {
-	dev_info(hub->dev, "likun %s() line:%d\n", __func__, __LINE__);
+	dev_info(hub->dev, "%s() line:%d\n", __func__, __LINE__);
 	/* open 0~3 PHY
 	 * max96712_reg_write(hub, 0x08A2, 0xF0);
 	 */
@@ -399,20 +374,20 @@ static int max96712_gsml2_config(struct maxim_hub_priv *priv)
 {
 	struct deser_hub_dev *hub =  &priv->hub;
 
-	//config_max_fix_rate(priv);
+	config_max_fix_rate(priv);
 
-       max_gmsl2_config(priv);
+	max_gmsl2_config(priv);
 
-	//max967XX_replicate_mode(hub);
+	max967XX_replicate_mode(hub);
 
-	//max96712_fsync_config(priv, priv->hub.trig_info);
+	max96712_fsync_config(priv, priv->hub.trig_info);
 
 	modify_serdes_address(priv);
 
-	//max_channel_open(priv);
+	max_channel_open(priv);
 
-	//if (priv->lane_speed >= 1600)
-	//	max_open_deskew(priv);
+	if (priv->lane_speed >= 1600)
+		max_open_deskew(priv);
 
 	return 0;
 }
@@ -425,15 +400,14 @@ static void maxim_hub_open_link(struct deser_hub_dev *hub)
 		container_of(hub, struct maxim_hub_priv, hub);
 
 	for (i = 0; i < MAX_CAMERAS_PER_SERDES; i++) {
-		if ( hub->chn[i].camera_bound && (hub->chn[i].cam_dev != NULL)) {
+		if (is_gmsl2_video_connected(hub, i))
 			link_bit |= 1 << i;
-		}
 	}
 
 	if (priv->link_mode == MAXIM_LINK_MODE_GMSL1)
 		max96712_reg_write(hub, 0x06, 0x0 | link_bit);
 	else
-		max96712_reg_write(hub, 0x01, 0xc1);
+		max96712_reg_write(hub, 0x06, 0xf0 | link_bit);
 }
 
 static int maxim_hub_s_stream(struct v4l2_subdev *subdev, int enable)
@@ -446,7 +420,7 @@ static int maxim_hub_s_stream(struct v4l2_subdev *subdev, int enable)
 	hub = container_of(subdev, struct deser_hub_dev, subdev);
 	subdev_port = (enable & MAXIM_STREAM_SUB_PORT_MASK) >> 4;
 	index = subdev_port % hub->max_port;
-	//is_enable = (enable & MAXIM_STREAM_ENABLE_MASK) == 1 ? 1 : 0;
+	// is_enable = (enable & MAXIM_STREAM_ENABLE_MASK) == 1 ? 1 : 0;
 
 	pr_info("%s() device index:[%d]\n", __func__, index);
 	if (!hub->chn[index].camera_bound || (hub->chn[index].cam_dev == NULL)) {
@@ -476,11 +450,6 @@ static int max96712_preinit(struct maxim_hub_priv *priv)
 #endif
 	/*Begin preset registers*/
 	/*Reset Chip*/
-  
-	max96712_reg_write(hub, 0x0320, 0x2C);
-	max96712_reg_write(hub, 0x044a, 0xD0);
-	max96712_reg_write(hub, 0x0474, 0x08);
-	max96712_reg_write(hub, 0x0330, 0x04);
 	max96712_reg_write(hub, 0x0013, 0x75);
 	mdelay(2);
 	/*Disable mipi output*/
@@ -518,8 +487,6 @@ static int max96712_gsm1_mipi_config(struct maxim_hub_priv *priv)
 #ifdef MAXIM_HUB_DEBUG
 	dev_err(hub->dev, "%s() line:%d\n", __func__, __LINE__);
 #endif
-	
-	max96712_reg_write(hub, 0x0313, 0x02);
 	max96712_reg_write(hub, 0x041A, 0xF0);
 	// mipi output set at 2*4
 	max96712_reg_write(hub, 0x08A0, 0x04);
@@ -610,7 +577,7 @@ static int max96701_config(struct maxim_hub_priv *priv)
 #endif
 	for (i = 0; i < hub->max_port; i++) {
 		//open Link
-		//max96712_reg_write(hub, 0x0006, (1 << i));
+		max96712_reg_write(hub, 0x0006, (1 << i));
 		mdelay(5);
 		//set Link
 		ser_write(hub, priv->ser_addr[i], 0x47, 0x2d);
@@ -640,7 +607,7 @@ static int max96705_config(struct maxim_hub_priv *priv)
 	for (i = 0; i < hub->max_port; i++) {
 		{
 			//chose Link
-			//max96712_reg_write(hub, 0x0006, (1 << i));
+			max96712_reg_write(hub, 0x0006, (1 << i));
 			mdelay(5);
 
 			if (ser_write(hub, priv->ser_addr[i], 0x00,
@@ -742,6 +709,8 @@ static int max96712_gsml1_config(struct maxim_hub_priv *priv)
 
 static int maxim_hub_s_power(struct v4l2_subdev *sd, int enable)
 {
+	int i, j;
+	int ret;
 	struct deser_hub_dev *hub =
 		container_of(sd, struct deser_hub_dev, subdev);
 	struct maxim_hub_priv *priv =
@@ -753,6 +722,16 @@ static int maxim_hub_s_power(struct v4l2_subdev *sd, int enable)
 	if (strncmp(&hub->ctl_level[0], "fad-lis", MAX_DTS_STRING_LEN) == 0) {
 		/* We enable CSI_REPLICATE for fad-lis */
 		dev_info(hub->dev, "%s: Slave mode, break config\n", __func__);
+		//
+		mdelay(100);
+		for (i = 0; i < hub->max_port; i++) {
+			for (j = 0; j < 5; j++) {
+				ret = is_gmsl2_video_connected(hub, i);
+				mdelay(50);
+				if (ret)
+					break;
+			}
+		}
 		hub->deser_boot_flag = true;
 		return 0;
 	}
@@ -765,10 +744,10 @@ static int maxim_hub_s_power(struct v4l2_subdev *sd, int enable)
 		}
 	} else if (priv->link_mode == MAXIM_LINK_MODE_GMSL1) {
 		dev_info(hub->dev, "%s() line:%d GMSL1\n", __func__, __LINE__);
-		//if (max96712_gsml1_config(priv)) {
-		//	pr_info("%s(), line %d, max96712_gsml1_config failed!\n", __func__, __LINE__);
-		//	return -EINVAL;
-		//}
+		if (max96712_gsml1_config(priv)) {
+			pr_info("%s(), line %d, max96712_gsml1_config failed!\n", __func__, __LINE__);
+			return -EINVAL;
+		}
 	}
 
 	hub->deser_boot_flag = true;
@@ -796,7 +775,7 @@ static int deser_notify_bound(struct v4l2_async_notifier *notifier,
 {
 	struct camera_dev *cam_dev;
 	struct deser_channel *deser_chn;
-	uint8_t value,value1;
+	//uint8_t value;
 
 	cam_dev = container_of(sd, struct camera_dev, subdev);
 	deser_chn = container_of(asd, struct deser_channel, async_dev);
@@ -806,14 +785,8 @@ static int deser_notify_bound(struct v4l2_async_notifier *notifier,
 	cam_dev->index_in_serdes = deser_chn->index;
 	deser_chn->cam_dev = cam_dev;
 	deser_chn->camera_bound = true;
-   
-	 max96712_reg_read(deser_chn->deser_dev, 0x044A, &value);
-	 max96712_reg_read(deser_chn->deser_dev, 0x0313, &value1);
-     pr_info("xqtest %x %x",value,value1);
-	 max96712_reg_read(deser_chn->deser_dev, 0x06a, &value);
-	// max96712_reg_write(deser_chn->deser_dev, 0x06, value & ~(1 << deser_chn->index));
-	 //max96712_reg_write(deser_chn->deser_dev, 0x18, 0x0f);
-	pr_info("%s(),line %d", __func__, __LINE__);
+
+	pr_info("%s(),line %d channel[%d]", __func__, __LINE__, cam_dev->index_in_serdes);
 	return 0;
 }
 
@@ -870,26 +843,16 @@ int parse_camera_serdes(struct deser_hub_dev *maxim_deser_hub,
 
 	if (!of_property_read_string(remote_ep, "serializer", &serializer)) {
 
-		if (strncmp(serializer, "max96705", 8) == 0) {
-#ifdef MAXIM_HUB_DEBUG
-			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX96705\n");
-#endif
+		if (strncmp(serializer, "max96705", 8) == 0)
 			priv->serial_type = SER_TYPE_MAX96705;
-		} else if (strncmp(serializer, "max96701", 8) == 0) {
-#ifdef MAXIM_HUB_DEBUG
-			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX96701\n");
-#endif
+		else if (strncmp(serializer, "max96701", 8) == 0)
 			priv->serial_type = SER_TYPE_MAX96701;
-		} else if (strncmp(serializer, "max9295", 7) == 0) {
-		#ifdef MAXIM_HUB_DEBUG
-			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX9295\n");
-		#endif
+		else if (strncmp(serializer, "max9295", 7) == 0)
 			priv->serial_type = SER_TYPE_MAX9295;
-		} else {
-#ifdef MAXIM_HUB_DEBUG
-			dev_err(maxim_deser_hub->dev, "SER_TYPE_INVALID\n");
-#endif
-		}
+		else if (strncmp(serializer, "max96717f", 9) == 0)
+			priv->serial_type = SER_TYPE_MAX96717f;
+		else
+			dev_info(maxim_deser_hub->dev, "SER_TYPE_INVALID\n");
 	} else {
 		priv->serial_type = SER_TYPE_INVALID;
 		dev_err(maxim_deser_hub->dev,
@@ -1002,29 +965,33 @@ static int maxim_hub_parse_dt(struct i2c_client *client)
 	hub->type = DESER_TYPE_INVALID;
 	if (!of_property_read_string(np, "type", &priv->deser_type)) {
 		if (priv->deser_type != NULL) {
-			strncpy(hub->name, priv->deser_type,MAX_DESER_NAME_LEN);
+			strncpy(hub->name, priv->deser_type,
+				MAX_DESER_NAME_LEN);
 			if (strncmp(priv->deser_type, "max96722", 8) == 0) {
 				hub->src_mask = 0x0f;
 				hub->max_port = 4;
 				hub->type = DESER_TYPE_MAX96712;
-				dev_err(&client->dev, "xq max_port1=%d\n",hub->max_port );
-			} else if (strncmp(priv->deser_type, "max96712", 8) == 0) {
+			} else if (strncmp(priv->deser_type, "max96712", 8) ==
+				   0) {
 				hub->src_mask = 0x0f;
 				hub->max_port = 4;
 				hub->type = DESER_TYPE_MAX96712;
-				dev_err(&client->dev, "[yanhy] max_port2=%d\n",hub->max_port );
 			}
 		}
 	}
 
 	/*Optional field*/
-	if (of_property_read_u32(np, "trigger-mode",&hub->trig_info.trigger_mode))
+	if (of_property_read_u32(np, "trigger-mode",
+				 &hub->trig_info.trigger_mode))
 		hub->trig_info.trigger_mode = DESER_TRIGGER_MODE_NONE;
-	if (of_property_read_u32(np, "trigger-fps",&hub->trig_info.trigger_fps))
+	if (of_property_read_u32(np, "trigger-fps",
+				 &hub->trig_info.trigger_fps))
 		hub->trig_info.trigger_fps = 25;
-	if (of_property_read_u32(np, "trigger-tx-gpio",&hub->trig_info.trigger_tx_gpio))
+	if (of_property_read_u32(np, "trigger-tx-gpio",
+				 &hub->trig_info.trigger_tx_gpio))
 		hub->trig_info.trigger_tx_gpio = 0;
-	if (of_property_read_u32(np, "trigger-rx-gpio",&hub->trig_info.trigger_rx_gpio))
+	if (of_property_read_u32(np, "trigger-rx-gpio",
+				 &hub->trig_info.trigger_rx_gpio))
 		hub->trig_info.trigger_rx_gpio = 0;
 	if (of_property_read_u32(np, "maxim,hsync-invert", &priv->hsync))
 		priv->hsync = 0;
@@ -1073,8 +1040,8 @@ static int register_subdev(struct maxim_hub_priv *priv)
 	priv->pads[MAXIM_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
 	priv->pads[MAXIM_SINK_LINK0].flags = MEDIA_PAD_FL_SINK;
 	priv->pads[MAXIM_SINK_LINK1].flags = MEDIA_PAD_FL_SINK;
-	//priv->pads[MAXIM_SINK_LINK2].flags = MEDIA_PAD_FL_SINK;
-	//priv->pads[MAXIM_SINK_LINK3].flags = MEDIA_PAD_FL_SINK;
+	priv->pads[MAXIM_SINK_LINK2].flags = MEDIA_PAD_FL_SINK;
+	priv->pads[MAXIM_SINK_LINK3].flags = MEDIA_PAD_FL_SINK;
 	ret = media_entity_pads_init(&sd->entity, MAXIM_N_PADS, priv->pads);
 	if (ret)
 		return ret;
@@ -1140,7 +1107,7 @@ int maxim_deser_hub_set_internal_frame_sync(struct deser_hub_dev *deser_hub,
 	switch (deser_hub->type) {
 	case DESER_TYPE_MAX96712:
 	case DESER_TYPE_MAX96722:
-		//max96712_fsync_config(priv, trig_info);
+		max96712_fsync_config(priv, trig_info);
 		break;
 	default:
 		dev_err(priv->hub.dev, "Device type not support for now\n");
@@ -1163,7 +1130,7 @@ int maxim_deser_hub_set_external_frame_sync(struct deser_hub_dev *deser_hub,
 	switch (deser_hub->type) {
 	case DESER_TYPE_MAX96712:
 	case DESER_TYPE_MAX96722:
-		//max96712_fsync_config(priv, trig_info);
+		max96712_fsync_config(priv, trig_info);
 		break;
 	default:
 		dev_err(priv->hub.dev, "Device type support for now\n");
@@ -1171,11 +1138,28 @@ int maxim_deser_hub_set_external_frame_sync(struct deser_hub_dev *deser_hub,
 	return 0;
 }
 
+static int maxim_detect_deserial(struct maxim_hub_priv *priv)
+{
+	int ret;
+	struct deser_hub_dev *hub;
+	uint8_t value;
+	struct i2c_client *client;
+
+	hub = &priv->hub;
+	client = hub->i2c_client;
+	ret = max96712_reg_read(hub, 0x0000, &value);
+	pr_err("==== modify test value=0x%x, client->addr=0x%x\n", value, client->addr);
+	if (client->addr != (value>>1)) {
+		dev_err(priv->hub.dev, "=== modify test max96712 have not found\n");
+		return 1;
+	}
+	return 0;
+}
 
 static int maxim_hub_probe(struct i2c_client *client,
 			   const struct i2c_device_id *id)
 {
-	 pr_info("[yanhy]: maxim hub probe entry...\n");
+	pr_info("--------[yanny] maxim 9671x probe....\n");
 	int ret;
 	struct maxim_hub_priv *priv;
 	int pdb_gpio = -1;
@@ -1193,11 +1177,8 @@ static int maxim_hub_probe(struct i2c_client *client,
 	priv->hub.external_trigger_sync =
 		maxim_deser_hub_set_external_frame_sync;
 	mutex_init(&priv->hub.deser_mutex);
-
-
-	msleep(50);
 	//power up deserializer at first
-	//if (strncmp(priv->hub.ctl_level, "fad-lis", 7) != 0) {
+	if (strncmp(priv->hub.ctl_level, "fad-lis", 7) != 0) {
 		pdb_gpio = of_get_named_gpio(client->dev.of_node, "pdb-gpio", 0);
 		if (gpio_is_valid(pdb_gpio)) {
 			ret = devm_gpio_request(&client->dev, pdb_gpio,
@@ -1214,8 +1195,13 @@ static int maxim_hub_probe(struct i2c_client *client,
 			gpio_direction_output(pdb_gpio, 1);
 			mdelay(5);
 		}
-	//}
-	msleep(500);
+	}
+
+	ret = maxim_detect_deserial(priv);
+	if (ret) {
+		dev_err(priv->hub.dev, "%s: not found max96712\n", __func__);
+		return -EINVAL;
+	}
 
 	ret = register_subdev(priv);
 	if (ret) {
@@ -1236,8 +1222,10 @@ static int maxim_hub_probe(struct i2c_client *client,
 			__func__);
 		return -EINVAL;
 	}
-         read_byte(priv);
-	pr_info("likun 0607: maxim hub probe done\n");
+	/*wait for start up GMSL Link*/
+	mdelay(20);
+	max96712_reg_write(&priv->hub, 0x03, 0xff);
+	pr_info("maxim hub probe done\n");
 	return 0;
 }
 

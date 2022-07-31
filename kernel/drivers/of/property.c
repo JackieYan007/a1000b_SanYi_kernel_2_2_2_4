@@ -757,6 +757,8 @@ EXPORT_SYMBOL(of_graph_get_port_parent);
 struct device_node *of_graph_get_remote_port_parent(
 			       const struct device_node *node)
 {
+	pr_err("[yanhy] of_graph_get_remote_port node name = %s.\n", node->name);
+
 	struct device_node *np, *pp;
 
 	/* Get remote endpoint node. */

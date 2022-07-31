@@ -28,6 +28,20 @@
                 remote-endpoint = <&camera_1_out>;
             };
         };
+
+        port@2 {
+            reg = <2>;
+            deser_0_in_2: endpoint@2{
+                remote-endpoint = <&camera_2_out>;
+            };
+        };
+
+        port@3 {
+            reg = <3>;
+            deser_0_in_3: endpoint@3{
+                remote-endpoint = <&camera_3_out>;
+            };
+        };
     };
 };
 

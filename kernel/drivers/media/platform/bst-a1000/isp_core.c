@@ -1372,15 +1372,18 @@ static int isp_channel_get_port_info(struct a1000_isp_device *isp_dev,
 
 		channel->of_node = port;
 		channel->fwnode = of_fwnode_handle(port);
-		dev_dbg(isp_dev->dev,
+		dev_err(isp_dev->dev,
 			"channel %d , port = %s, fwnode = 0x%lx\n", sn,
 			port->full_name, (unsigned long)channel->fwnode);
 
+                              
 		ep = of_get_child_by_name(port, "endpoint");
 		if (ep) {
+			
 			int ret;
 			int reg;
 			int id;
+                                                pr_err("[yanhy] ep node name = %s.\n", ep->name);
 			// of_graph_get_remote_node
 			remote_port = of_graph_get_remote_port(ep);
 			if (!remote_port) {

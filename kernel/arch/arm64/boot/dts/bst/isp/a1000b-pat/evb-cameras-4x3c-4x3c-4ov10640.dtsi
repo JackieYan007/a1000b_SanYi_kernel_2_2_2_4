@@ -68,7 +68,7 @@
         reg = <0x54>;
         ser-alias-id = <0x44>;
         sensor-alias-id = <0x54>;
-        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
+        #include "../cameras/ox3c_raw_1920x1080.dtsi"
         port {
             camera_4_out: endpoint@0 {
                 remote-endpoint = <&deser_1_in_0>;
@@ -81,7 +81,7 @@
         ser-alias-id = <0x45>;
         sensor-alias-id = <0x55>;
 
-        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
+        #include "../cameras/ox3c_raw_1920x1080.dtsi"
 
         port {
             camera_5_out: endpoint@0 {
@@ -94,7 +94,7 @@
         reg = <0x56>;
         ser-alias-id = <0x46>;
         sensor-alias-id = <0x56>;
-        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
+        #include "../cameras/ox3c_raw_1920x1080.dtsi"
 
         port {
             camera_6_out: endpoint@0 {
@@ -107,7 +107,7 @@
         reg = <0x57>;
         ser-alias-id = <0x47>;
         sensor-alias-id = <0x57>;
-        #include "../cameras/ar0231_yuv_1920x1080.dtsi"
+        #include "../cameras/ox3c_raw_1920x1080.dtsi"
 
         port {
             camera_7_out: endpoint@0 {
