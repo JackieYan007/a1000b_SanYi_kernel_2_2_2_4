@@ -7,7 +7,7 @@
    ov10640-yuv*4    1280x720
 */
 
-&i2c3 {
+&i2c1 {
     camera0: camera@50 {
         reg = <0x50>;
         ser-alias-id = <0x40>;
