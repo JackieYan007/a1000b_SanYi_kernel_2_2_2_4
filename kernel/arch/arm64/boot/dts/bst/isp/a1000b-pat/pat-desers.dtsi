@@ -1,5 +1,5 @@
 /*
-   default deser config for evb
+   default deser config for pat
 */
 
 &i2c1 {
@@ -21,7 +21,7 @@
         maxim,hsync-invert = <0>;
         maxim,vsync-invert = <0>;
         maxim,link-mode = "GMSL2";
-        pdb-gpio = <&porta 22 0>;
+        pdb-gpio = <&porta 23 0>;
     };
 
     deser1: ti960@3d {
@@ -60,7 +60,7 @@
         i2c-port = <0>;
         csi2-port = <0>;
         lane-speed = <1600>;
-        pdb-gpio = <&porta 23 0>;
+        pdb-gpio = <&porta 20 0>;
     };
 };
 

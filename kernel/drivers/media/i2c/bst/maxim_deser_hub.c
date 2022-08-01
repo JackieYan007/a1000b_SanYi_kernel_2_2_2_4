@@ -870,27 +870,22 @@ int parse_camera_serdes(struct deser_hub_dev *maxim_deser_hub,
 
 	if (!of_property_read_string(remote_ep, "serializer", &serializer)) {
 
+		dev_err(maxim_deser_hub->dev, "[yanhy]SER_TYPE=%s\n",serializer );
+
 		if (strncmp(serializer, "max96705", 8) == 0) {
-#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX96705\n");
-#endif
 			priv->serial_type = SER_TYPE_MAX96705;
 		} else if (strncmp(serializer, "max96701", 8) == 0) {
-#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX96701\n");
-#endif
 			priv->serial_type = SER_TYPE_MAX96701;
 		} else if (strncmp(serializer, "max9295", 7) == 0) {
-		#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX9295\n");
-		#endif
 			priv->serial_type = SER_TYPE_MAX9295;
 		} else {
-#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_INVALID\n");
-#endif
 		}
 	} else {
+		dev_err(maxim_deser_hub->dev, "[yanhy]Not Found serializer node.\n");
 		priv->serial_type = SER_TYPE_INVALID;
 		dev_err(maxim_deser_hub->dev,
 			"Invalid DT serializer  property\n");
@@ -1197,24 +1192,22 @@ static int maxim_hub_probe(struct i2c_client *client,
 
 	msleep(50);
 	//power up deserializer at first
-	//if (strncmp(priv->hub.ctl_level, "fad-lis", 7) != 0) {
-		pdb_gpio = of_get_named_gpio(client->dev.of_node, "pdb-gpio", 0);
-		if (gpio_is_valid(pdb_gpio)) {
-			ret = devm_gpio_request(&client->dev, pdb_gpio,
-						dev_name(&client->dev));
-			if (ret) {
-				dev_err(&client->dev,
-					"failed to request gpio %d\n", pdb_gpio);
-				return ret;
-			}
-
-			mdelay(5);
-			gpio_direction_output(pdb_gpio, 0);
-			mdelay(5);
-			gpio_direction_output(pdb_gpio, 1);
-			mdelay(5);
+	
+	pdb_gpio = of_get_named_gpio(client->dev.of_node, "pdb-gpio", 0);
+	if (gpio_is_valid(pdb_gpio)) {
+		ret = devm_gpio_request(&client->dev, pdb_gpio,dev_name(&client->dev));
+		if (ret) {
+			dev_err(&client->dev,"failed to request gpio %d\n", pdb_gpio);
+			return ret;
 		}
-	//}
+
+		mdelay(5);
+		gpio_direction_output(pdb_gpio, 0);
+		mdelay(5);
+		gpio_direction_output(pdb_gpio, 1);
+		mdelay(5);
+	}
+	
 	msleep(500);
 
 	ret = register_subdev(priv);

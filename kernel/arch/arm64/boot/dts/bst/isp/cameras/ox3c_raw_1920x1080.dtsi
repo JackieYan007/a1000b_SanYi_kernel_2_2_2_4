@@ -43,6 +43,6 @@ isp-lef-crop = <0x0000>;
 isp-rig-crop = <0x0000>;
 
 tri-gpio = <0>;
-maxim,rx_rate = <6>;
+maxim,rx_rate = <3>;//Depends on the module
 serial-i2c = <0x62>;
 maxim,link-mode = "GMSL2";
