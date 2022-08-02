@@ -182,13 +182,13 @@ static int camera_s_power(struct v4l2_subdev *sd, int enable)
 
 	if (!enable)
 		return 0;
-
+#if 0
 	if (!ox3c_raw->maxim_power_on) {
 		pr_info("[yanhy]ox3c %s(), line %d\n", __func__, __LINE__);
 		ox3c_raw->power_on = false;
 		return -EINVAL;
 	}
-
+#endif
 	if (!is_slave_soc_model(ox3c_raw)) {
 		ret = ox3c_ser_cfg(ox3c_raw);
 
