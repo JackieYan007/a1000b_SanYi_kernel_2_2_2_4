@@ -45,6 +45,7 @@
 
 static int read_camera_ser_alias_id(struct camera_dev *cam_dev)
 {
+	pr_info("[yanhy]ox3c  %s(), line %d\n", __func__, __LINE__);
 	int ret = -1;
 	int retry_maxtimes = 10;
 	u8 reg_value;
@@ -59,6 +60,8 @@ static int read_camera_ser_alias_id(struct camera_dev *cam_dev)
 		else if (ret == 0)
 			break;
 	}
+	pr_info("[yanhy]ox3c %s(), line %d.reg_value=0x%x,cam_dev->ser_alias_id=0x%x.\n", __func__, __LINE__, reg_value, (cam_dev->ser_alias_id << 1));
+
 	//modify ser_alias i2c address
 	if (reg_value == (cam_dev->ser_alias_id << 1))
 		return 0;
@@ -73,7 +76,7 @@ static int ox3c_ser_cfg(struct camera_dev *ox3c_raw)
 	int ret;
 	struct i2c_adapter *adap;
 
-	pr_info("ox3c %s(), line %d\n", __func__, __LINE__);
+	pr_info("[yanny]ox3c %s(), line %d\n", __func__, __LINE__);
 
 	if (ox3c_raw == NULL) {
 		pr_info("%s : camera_dev is NULL\n", __func__);
@@ -175,12 +178,13 @@ static int camera_s_power(struct v4l2_subdev *sd, int enable)
 	struct camera_dev *ox3c_raw =
 		container_of(sd, struct camera_dev, subdev);
 
-	pr_info("ox3c %s(), line %d\n", __func__, __LINE__);
+	pr_info("[yanhy]ox3c %s(), line %d\n", __func__, __LINE__);
 
 	if (!enable)
 		return 0;
 
 	if (!ox3c_raw->maxim_power_on) {
+		pr_info("[yanhy]ox3c %s(), line %d\n", __func__, __LINE__);
 		ox3c_raw->power_on = false;
 		return -EINVAL;
 	}
@@ -192,12 +196,12 @@ static int camera_s_power(struct v4l2_subdev *sd, int enable)
 			return ret;
 
 		ret = read_camera_ser_alias_id(ox3c_raw);
-
+		pr_info("[yanhy]ox3c %s(), line %d,ret=0x%x.\n", __func__, __LINE__, ret);
 		if (ret == 0)
 			ox3c_power_on(ox3c_raw);
 	}
 	ox3c_raw->power_on = true;
-
+	pr_info("[yanhy]ox3c power done and ok.%s(), line %d\n", __func__, __LINE__);
 	return 0;
 }
 

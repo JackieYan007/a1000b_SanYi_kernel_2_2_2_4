@@ -44,5 +44,5 @@ isp-rig-crop = <0x0000>;
 
 tri-gpio = <0>;
 maxim,rx_rate = <3>;//Depends on the module
-serial-i2c = <0x62>;
+serial-i2c = <0x42>;//max96717f physical i2c address
 maxim,link-mode = "GMSL2";

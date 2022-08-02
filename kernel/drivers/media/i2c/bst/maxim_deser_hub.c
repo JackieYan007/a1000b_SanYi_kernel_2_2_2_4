@@ -206,6 +206,8 @@ static int modify_serdes_address(struct maxim_hub_priv *priv)
 		//	pr_info("%s() cam_dev [%d] is NULL, break\n", __func__, i);
 		//	continue;
 		// }
+		if (!is_gmsl2_video_connected(hub, i))
+			continue;
 		msleep(100);
 		write_register(adap, priv->ser_addr[i], 0x0000, (priv->ser_alias_addr[i] << 1));
 		write_register(adap, priv->ser_alias_addr[i], 0x0042, (priv->sensor_alias_addr[i] << 1));
