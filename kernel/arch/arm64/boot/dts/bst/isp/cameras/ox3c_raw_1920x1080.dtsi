@@ -19,6 +19,7 @@ iq-online = "ox3coffline/ox3c_raw14_sy_h190_IqParam_maxieye_hw_pwl.bin";
 //pwl-lut = "ox3coffline/ox3c_raw14_sy_h60_pwl_lut.bin";
 
 hdr-stagger-en = <0x81>;//offline
+//hdr-stagger-en = <0x01>;//inline less equals <=2 can configure inline mode
 exp-num = <1>;
 isp-pwl-infomat = <15>;//hw pwl
 dvp-data-type = <0x2d>;
@@ -43,6 +44,7 @@ isp-lef-crop = <0x0000>;
 isp-rig-crop = <0x0000>;
 
 tri-gpio = <0>;
+lines-to-detect-bad = <6>;
 maxim,rx_rate = <3>;//Depends on the module
 serial-i2c = <0x42>;//max96717f physical i2c address
 maxim,link-mode = "GMSL2";

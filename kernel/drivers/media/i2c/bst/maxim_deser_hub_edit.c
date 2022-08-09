@@ -41,46 +41,7 @@
 
 #define MAXIM_HUB_DEBUG
 static unsigned long crossbar = 0xba9876543210;   /* default crossbar */
-static int read_byte(struct maxim_hub_priv *priv)
-{
-        int i;
-        struct i2c_adapter *adap;
-        struct deser_hub_dev *hub;
-        uint8_t value;
-        hub = &priv->hub;
-        adap = hub->i2c_client->adapter;
-#ifdef MAXIM_HUB_DEBUG
-        dev_info(hub->dev, "%s() %d\n", __func__, __LINE__);
-#endif
-        //modify serlias i2c address
-      // for (i = 0; i < 4090; i++) {
-            //     max96712_reg_read(hub, i, &value);
-	//	pr_info("xq[%x]=%x ,",0x474,value);
-           //      }
-              max96712_reg_read(hub, 0x0474, &value);
-		pr_info("xq[%x]=%x ,",0x474,value);
 
-               max96712_reg_read(hub, 0x044A, &value);
-	pr_info("xq[%x]=%x ,",0x44A,value);
-        
-               max96712_reg_read(hub, 0x0330, &value);
-		pr_info("xq[%x]=%x ,",0x330,value);
-        
-                max96712_reg_read(hub, 0x0320, &value);
-		pr_info("xq[%x]=%x ,",0x320,value);
-		
-               max96712_reg_read(hub, 0x0313, &value);
-		pr_info("xq[%x]=%x ,",0x313,value);
-		max96712_reg_read(hub, 0x01, &value);
-		pr_info("xq[%x]=%x ,",0x1,value);
-		max96712_reg_read(hub, 0x10, &value);
-	        pr_info("xq[%x]=%x ,",0x10,value);
-               max96712_reg_read(hub, 0x29,&value);
-	         pr_info("xq[%x]=%x ,",0x29,value);
-		     max96712_reg_read(hub, 0x13,&value);
-	         pr_info("xq[%x]=%x ,",0x13,value);
-		return 0;
-}
 static int set_max96712_csi_phy_speed(struct maxim_hub_priv *priv)
 {
 	struct deser_hub_dev *hub;
@@ -108,21 +69,21 @@ static int max_gmsl2_config(struct maxim_hub_priv *priv)
 	int offset = 0;
 	int i = 0;
        
-	//write_reg(hub->i2c_client, 0x00, 0x90); //Disable MIPI CSI-2
-	write_reg(hub->i2c_client, 0x313, 0x00); //Disable MIPI CSI-2
-          write_reg(hub->i2c_client, 0x10, 0x91);	// Enable all 4 Links in
+           //write_reg(hub->i2c_client, 0x00, 0x90);    //Disable MIPI CSI-2
+	write_reg(hub->i2c_client, 0x313, 0x00);  //Disable MIPI CSI-2
+        write_reg(hub->i2c_client, 0x10, 0x91);	  //Enable all 4 Links in
         //max96712_reg_read(hub, 0x10, 0x0);
 	write_reg(hub->i2c_client, 0x0474, 0x18);
 	msleep(50);
 	// Video Pipe Selection
-       //	write_reg(hub->i2c_client, 0xF0, 0x62); //40/62 // pipe X in link B to video pipe 1)pipe X in link A to video pipe 0
+         //write_reg(hub->i2c_client, 0xF0, 0x62); //40/62 // pipe X in link B to video pipe 1)pipe X in link A to video pipe 0
 	//write_reg(hub->i2c_client, 0xF1, 0xea); //ea/c8 // pipe X in link D to video pipe 3)pipe X in link C to video pipe 2
 	//register16_write(hub,0xF2,0x51);	// pipe Y in link B to video pipe 4)pipe Y in link A to video pipe 5
 	//register16_write(hub,0xF3,0xD9); // pipe Y in link D to video pipe 6)pipe Y in link C to video pipe 7
 	//write_reg(hub->i2c_client, 0xF4, 0x0F); // Turn on 4 pipes
 
 	// Efficiency updates (disable HEARTBEAT Mode); for image data pipes 0-3
-       write_reg(hub->i2c_client, 0x01, 0xc1);
+         write_reg(hub->i2c_client, 0x01,    0xc1);
 //	write_reg(hub->i2c_client, 0x0118, 0x0A);
 //	write_reg(hub->i2c_client, 0x012A, 0x0A);
 //	write_reg(hub->i2c_client, 0x013C, 0x0A);
@@ -150,7 +111,7 @@ static int max_gmsl2_config(struct maxim_hub_priv *priv)
 	// Turn on MIPI PHYs
 	write_reg(hub->i2c_client, 0x0320, 0x2C);
 	write_reg(hub->i2c_client, 0x0313, 0x02);
-	read_byte(priv);
+
 	// Hold DPLL in reset (config_soft_rst_n = 0); before changing the rate
 	//write_reg(hub->i2c_client, 0x1C00, 0xF4);
 	//write_reg(hub->i2c_client, 0x1D00, 0xF4);
@@ -197,15 +158,8 @@ static int modify_serdes_address(struct maxim_hub_priv *priv)
 
 	hub = &priv->hub;
 	adap = hub->i2c_client->adapter;
-#ifdef MAXIM_HUB_DEBUG
-	dev_info(hub->dev, "%s() %d\n", __func__, __LINE__);
-#endif
 	//modify serlias i2c address
 	for (i = 0; i < hub->max_port; i++) {
-		// if (!hub->chn[i].camera_bound || (hub->chn[i].cam_dev == NULL)) {
-		//	pr_info("%s() cam_dev [%d] is NULL, break\n", __func__, i);
-		//	continue;
-		// }
 		msleep(100);
 		write_register(adap, priv->ser_addr[i], 0x0000, (priv->ser_alias_addr[i] << 1));
 		write_register(adap, priv->ser_alias_addr[i], 0x0042, (priv->sensor_alias_addr[i] << 1));
@@ -213,7 +167,7 @@ static int modify_serdes_address(struct maxim_hub_priv *priv)
 		dev_info(hub->dev, " xq %s() %x  %x\n", __func__, (priv->ser_alias_addr[i] << 1),(priv->sensor_addr[i] << 1));
 	}
 	usleep_range(1000, 2000);
-	//max96712_reg_write(hub, 0x06, 0xff);
+
 	return 0;
 }
 
@@ -229,7 +183,6 @@ static void maxim_hub_set_mipi_output(struct deser_hub_dev *hub, bool enable)
 	switch (hub->type) {
 	case DESER_TYPE_MAX96712:
 	case DESER_TYPE_MAX96722:
-		//max96712_reg_read(hub, 0x040B, &value);
 		max96712_reg_write(hub, 0x0313,0x02);
 		break;
 	default:
@@ -241,18 +194,12 @@ static void maxim_hub_set_mipi_output(struct deser_hub_dev *hub, bool enable)
 static void max_open_deskew(struct maxim_hub_priv *priv)
 {
 	struct deser_hub_dev *hub = &priv->hub;
-	//mipi0
-	max96712_reg_write(hub, 0x903, 0x80);
-	max96712_reg_write(hub, 0x904, 0x91);
-	//mipi1
-	max96712_reg_write(hub, 0x943, 0x80);
-	max96712_reg_write(hub, 0x944, 0x91);
-	//mipi2
-	max96712_reg_write(hub, 0x983, 0x80);
-	max96712_reg_write(hub, 0x984, 0x91);
-	//mipi3
-	max96712_reg_write(hub, 0x9c3, 0x80);
-	max96712_reg_write(hub, 0x9c4, 0x91);
+
+	max96712_reg_write(hub, 0x443, 0x80);
+	max96712_reg_write(hub, 0x444, 0x91);
+
+	max96712_reg_write(hub, 0x483, 0x80);
+	max96712_reg_write(hub, 0x484, 0x91);
 }
 
 static int max96712_fsync_config(struct maxim_hub_priv *priv, struct deser_trigger_info trig_info)
@@ -271,18 +218,18 @@ static int max96712_fsync_config(struct maxim_hub_priv *priv, struct deser_trigg
 		return 1;
 	}
 	/*Set Manual mode*/
-	max96712_reg_write(hub, 0x04A0, 0x04);
+	max96712_reg_write(hub, 0x03E0, 0x04);
 	/*Turn off auto master link selection*/
-	max96712_reg_write(hub, 0x04A2, 0x00);
+	max96712_reg_write(hub, 0x03E2, 0x00);
 	/*Disable overlap window*/
-	max96712_reg_write(hub, 0x04AA, 0x00);
-	max96712_reg_write(hub, 0x04AB, 0x00);
+	max96712_reg_write(hub, 0x03EA, 0x00);
+	max96712_reg_write(hub, 0x03EB, 0x00);
 
 	switch (trig_info.trigger_mode) {
 	case DESER_TRIGGER_MODE_NONE:
 			dev_info(hub->dev, "NONE TRIGGER MODE\n");
 			//Setting default fsync mode
-			max96712_reg_write(hub, 0x04A0, 0x0d);
+			max96712_reg_write(hub, 0x03E0, 0x0d);
 			break;
 	case DESER_TRIGGER_MODE_INTERNAL:
 			dev_info(hub->dev, "INTERNAL TRIGGER MODE\n");
@@ -293,47 +240,38 @@ static int max96712_fsync_config(struct maxim_hub_priv *priv, struct deser_trigg
 				gpi_conf = 0;
 				gpi_conf = 0x31 | (trig_info.trigger_tx_gpio << 6);
 
-				max96712_reg_write(hub, 0x04AF, 0x4F);
-				max96712_reg_write(hub, 0x0B08, gpi_conf);
-				max96712_reg_write(hub, 0x0C08, gpi_conf);
-				max96712_reg_write(hub, 0x0D08, gpi_conf);
-				max96712_reg_write(hub, 0x0E08, gpi_conf);
+				max96712_reg_write(hub, 0x03EF, 0x4F);
 			} else if (priv->link_mode == MAXIM_LINK_MODE_GMSL2) {
-				max96712_reg_write(hub, 0x04AF, 0xd0);
+				max96712_reg_write(hub, 0x03EF, 0xd0);
 			}
 			/*PCLK config*/
 			/*MAXIM internal crystal oscillator is 25Mhz*/
 			fsync_period = 25000000 / trig_info.trigger_fps;
-			max96712_reg_write(hub, 0x04A7, fsync_period >> 16);
-			max96712_reg_write(hub, 0x04A6, (fsync_period >> 8) & 0xff);
-			max96712_reg_write(hub, 0x04A5, fsync_period & 0xff);
+			max96712_reg_write(hub, 0x03E7, fsync_period >> 16);
+			max96712_reg_write(hub, 0x03E6, (fsync_period >> 8) & 0xff);
+			max96712_reg_write(hub, 0x03E5, fsync_period & 0xff);
 			/*
 			 * gpio id used for transmitting fsync signal [7:3]
 			 */
+			dev_info(hub->dev, "[yanhy]trigger_tx_gpio=%d.\n",trig_info.trigger_tx_gpio);
 			gpio_id = 0;
 			gpio_id = 0x00 | (trig_info.trigger_tx_gpio << 3);
-			max96712_reg_write(hub, 0x04b1, gpio_id);
+			dev_info(hub->dev, "[yanhy]gpio_id=%d.\n",gpio_id);
+			max96712_reg_write(hub, 0x03F1, gpio_id);
 
 			break;
 	case DESER_TRIGGER_MODE_EXTERNAL:
 			dev_info(hub->dev, "EXTERNAL TRIGGER MODE\n");
 			/*Set Externel mode*/
-			max96712_reg_write(hub, 0x04A0, 0x08);
+			max96712_reg_write(hub, 0x03E0, 0x08);
 
 			if (priv->link_mode == MAXIM_LINK_MODE_GMSL1) {
-				max96712_reg_write(hub, 0x04AF, 0x1F);
-				gpi_conf = 0;
-				gpi_conf = 0x21 | (trig_info.trigger_tx_gpio << 6);
-				max96712_reg_write(hub, 0x0B08, gpi_conf);
-				max96712_reg_write(hub, 0x0C08, gpi_conf);
-				max96712_reg_write(hub, 0x0D08, gpi_conf);
-				max96712_reg_write(hub, 0x0E08, gpi_conf);
 			} else if (priv->link_mode == MAXIM_LINK_MODE_GMSL2) {
-				max96712_reg_write(hub, 0x04AF, 0x9F);
+				max96712_reg_write(hub, 0x03EF, 0x9F);
 				/*
 				 * Receive FSYNC form MFP2 (GPIO2)
 				 */
-				max96712_reg_write(hub, 0x0306, 0x83);
+				max96712_reg_write(hub, 0x02B0, 0x83);
 				max96712_reg_write(hub, 0x033D, 0x22);
 				max96712_reg_write(hub, 0x0374, 0x22);
 				max96712_reg_write(hub, 0x03AA, 0x22);
@@ -351,7 +289,7 @@ static int max96712_fsync_config(struct maxim_hub_priv *priv, struct deser_trigg
 	}
 	return 0;
 }
-
+#if 0
 static int config_max_fix_rate(struct maxim_hub_priv *priv)
 {
 
@@ -384,7 +322,38 @@ static int config_max_fix_rate(struct maxim_hub_priv *priv)
 
 	return 0;
 }
+#else
 
+static int config_max_fix_rate(struct maxim_hub_priv *priv)
+{
+
+	struct deser_hub_dev *hub =  &priv->hub;
+	dev_info(hub->dev, "[yanhy] %s() line:%d.rx_rate=%d,data_type=0x%x\n", __func__, __LINE__, priv->rx_rate, priv->data_type);
+
+	if (priv->rx_rate == 6) {
+
+	}else if (priv->rx_rate == 3) {
+		max96712_reg_write(hub, 0x0313, 0x00);
+		max96712_reg_write(hub, 0x0001, 0x11);
+		max96712_reg_write(hub, 0x0010, 0x31); //reset
+	}
+
+	//config data_type
+	if (priv->data_type == 0x1e) {
+		//DT_UYVY
+		max96712_reg_write(hub, 0x044d, 0x1e);
+		max96712_reg_write(hub, 0x044e, 0x1e);
+	} else if (priv->data_type == 0x2d) {
+		//DT_RAW14
+		max96712_reg_write(hub, 0x044d, 0x2d);
+		max96712_reg_write(hub, 0x044e, 0x2d);
+	}
+
+	return 0;
+}
+
+
+#endif
 static void max967XX_replicate_mode(struct deser_hub_dev *hub)
 {
 	dev_info(hub->dev, "likun %s() line:%d\n", __func__, __LINE__);
@@ -399,20 +368,24 @@ static int max96712_gsml2_config(struct maxim_hub_priv *priv)
 {
 	struct deser_hub_dev *hub =  &priv->hub;
 
-	//config_max_fix_rate(priv);
+       //haoyu open
+       //config_max_fix_rate(priv);
 
        max_gmsl2_config(priv);
 
 	//max967XX_replicate_mode(hub);
 
-	//max96712_fsync_config(priv, priv->hub.trig_info);
+       //haoyu open
+        max96712_fsync_config(priv, priv->hub.trig_info);
 
 	modify_serdes_address(priv);
 
 	//max_channel_open(priv);
 
-	//if (priv->lane_speed >= 1600)
-	//	max_open_deskew(priv);
+	//haoyu open
+	if (priv->lane_speed >= 1600){
+		//max_open_deskew(priv);
+	}
 
 	return 0;
 }
@@ -435,36 +408,13 @@ static void maxim_hub_open_link(struct deser_hub_dev *hub)
 	else
 		max96712_reg_write(hub, 0x01, 0xc1);
 }
-#if 0
-static int maxim_dump_max97171f_regs(struct deser_hub_dev *hub, uint8_t slave_address){
-	
-	struct i2c_client *client;
-	client = hub->i2c_client;
-	
-	uint8_t raw_address = client->addr;
-	client->addr = slave_address;
-	
-	int i = 0;
-	uint8_t value = 0;
-	pr_info("%s() %d, set stream", __func__, __LINE__);
-	for(i=0; i<=0x1D5F; i++){
-	        max96712_reg_read(hub, i, &value);
-	        pr_info("xq[%x]=%x ,\n", i, value);
-	}
-	
-	client->addr = raw_address;
-	pr_info("%s() %d, set stream", __func__, __LINE__);
-	return 0;
-}
-#endif
 
 static int maxim_hub_s_stream(struct v4l2_subdev *subdev, int enable)
 {
 	int subdev_port, index;
 	struct deser_hub_dev *hub;
 	static uint8_t max_stream_bit;
-	int i = 0;
-	uint8_t value;
+
 	pr_info("%s() %d, set stream", __func__, __LINE__);
 	hub = container_of(subdev, struct deser_hub_dev, subdev);
 	subdev_port = (enable & MAXIM_STREAM_SUB_PORT_MASK) >> 4;
@@ -488,147 +438,6 @@ static int maxim_hub_s_stream(struct v4l2_subdev *subdev, int enable)
 	}
 
 	mutex_unlock(&hub->deser_mutex);
-#if 0
-	for(i=0; i<0x52d6; i++){
-	        max96712_reg_read(hub, i, &value);
-	        pr_info("xq[%x]=%x ,\n", i, value);
-	}
-	
-	maxim_dump_max97171f_regs(hub, 0x40);
-#endif	
-	return 0;
-}
-
-static int max96712_preinit(struct maxim_hub_priv *priv)
-{
-	struct deser_hub_dev *hub = &priv->hub;
-#ifdef MAXIM_HUB_DEBUG
-	dev_err(hub->dev, "%s() line:%d\n", __func__, __LINE__);
-#endif
-	/*Begin preset registers*/
-	/*Reset Chip*/
-  
-	max96712_reg_write(hub, 0x0320, 0x2C);
-	max96712_reg_write(hub, 0x044a, 0xD0);
-	max96712_reg_write(hub, 0x0474, 0x08);
-	max96712_reg_write(hub, 0x0330, 0x04);
-	max96712_reg_write(hub, 0x0013, 0x75);
-	mdelay(2);
-	/*Disable mipi output*/
-	max96712_reg_write(hub, 0x040B, 0x00);
-	/*Disable mipi input*/
-	max96712_reg_write(hub, 0x0006, 0x00);
-	//one-shot Reset
-	max96712_reg_write(hub, 0x0018, 0x0F);
-	// /*Set i2c fast plus mode*/
-	// max96712_reg_write(hub, 0x0640, 0x00);
-	/*Turn on HIM*/
-	max96712_reg_write(hub, 0x0B06, 0xEF);
-	max96712_reg_write(hub, 0x0C06, 0xEF);
-	max96712_reg_write(hub, 0x0D06, 0xEF);
-	max96712_reg_write(hub, 0x0E06, 0xEF);
-	/*Disable HS/VS processing*/
-	max96712_reg_write(hub, 0x0B0F, 0x01);
-	max96712_reg_write(hub, 0x0C0F, 0x01);
-	max96712_reg_write(hub, 0x0D0F, 0x01);
-	max96712_reg_write(hub, 0x0E0F, 0x01);
-	/*Enable HS/VS processing*/
-	max96712_reg_write(hub, 0x0B07, 0x84);
-	max96712_reg_write(hub, 0x0C07, 0x84);
-	max96712_reg_write(hub, 0x0D07, 0x84);
-	max96712_reg_write(hub, 0x0E07, 0x84);
-	mdelay(5);
-	return 0;
-}
-
-static int max96712_gsm1_mipi_config(struct maxim_hub_priv *priv)
-{
-	struct deser_hub_dev *hub =  &priv->hub;
-	char data_type;
-	char bpp;
-#ifdef MAXIM_HUB_DEBUG
-	dev_err(hub->dev, "%s() line:%d\n", __func__, __LINE__);
-#endif
-	
-	max96712_reg_write(hub, 0x0313, 0x02);
-	max96712_reg_write(hub, 0x041A, 0xF0);
-	// mipi output set at 2*4
-	max96712_reg_write(hub, 0x08A0, 0x04);
-	// enable 2 output phy
-	max96712_reg_write(hub, 0x08A2, 0x30);
-	// enable 4 pipeline
-	max96712_reg_write(hub, 0x00F4, 0x0F);
-	//phy1 lane no. at 4
-	max96712_reg_write(hub, 0x094A, 0xC0);
-	//phy0/1 lane map #default:4E
-	max96712_reg_write(hub, 0x08A3, 0xE4);
-	//VC for pipe line 0/1 set as 0 and //all =0
-	max96712_reg_write(hub, 0x040C, 0x00);
-	//VC for pipe line 2/3 set as 0 and //all=0
-	max96712_reg_write(hub, 0x040D, 0x00);
-	/*
-	 * Setting Datatype
-	 */
-
-	data_type = priv->data_type;
-	max96712_reg_write(hub, 0x040E, ((data_type >> 4) << 6) | data_type);
-	//dt for pipe line 1/2 set as YUV422
-	max96712_reg_write(hub, 0x040F, ((data_type >> 2) << 4) | (data_type & 0xf));
-	//dt for pipe line 2/3 set as YUV422
-	max96712_reg_write(hub, 0x0410, (data_type << 2) | (data_type & 0x03));
-
-	//BPP for pipe line 1/2 set as 1E(YUV422)
-	if (priv->data_type == 0x1E)
-		bpp = 0x8;
-	else if (priv->data_type == 0x2B)
-		bpp = 0xA;
-	else if (priv->data_type == 0x2C)
-		bpp = 0xC;
-	else if (priv->data_type == 0x2D)
-		bpp = 0xE;
-	else if (priv->data_type == 0x2E)
-		bpp = 0x10;
-
-	max96712_reg_write(hub, 0x0411, ((bpp >> 2) << 5) | (bpp & 0x1f));
-	max96712_reg_write(hub, 0x0412, (bpp << 2) | (bpp & 0x03));
-	/*
-	 * set CSI PHY Speed
-	 */
-	set_max96712_csi_phy_speed(priv);
-	//following is for pipeline mapping. Needed for FCFS mode, and not needed for concatenate mode.
-	max96712_reg_write(hub, 0x090B, 0x07);//enable 3 mappings for pipeline 0
-	max96712_reg_write(hub, 0x092D, 0x15);// map to destination controller 1
-	max96712_reg_write(hub, 0x090F, 0x00);//source dt(00,frame start) and vc(0)
-	max96712_reg_write(hub, 0x0910, 0x00);//destination dt(00,frame start) and vc(0)
-	max96712_reg_write(hub, 0x0911, 0x01);//source dt(01,frame end) and vc(0)
-	max96712_reg_write(hub, 0x0912, 0x01);//destination dt(01,frame end) and vc(0)
-	max96712_reg_write(hub, 0x094B, 0x07);//enable 3 mappings for pipeline 1
-	max96712_reg_write(hub, 0x096D, 0x15);// CSI2 controller 1
-	max96712_reg_write(hub, 0x094F, 0x00);//Source VC=0
-	max96712_reg_write(hub, 0x0950, 0x40);//DES: VC=1
-	max96712_reg_write(hub, 0x0951, 0x01);//Source VC=1
-	max96712_reg_write(hub, 0x0952, 0x41);
-	max96712_reg_write(hub, 0x098B, 0x07);//enable 3 mappings for pipeline 2
-	max96712_reg_write(hub, 0x09AD, 0x15);// CSI2 controller 1
-	max96712_reg_write(hub, 0x098F, 0x00);//SOURCE DT AND VC
-	max96712_reg_write(hub, 0x0990, 0x80);//DES DT AND VC
-	max96712_reg_write(hub, 0x0991, 0x01);//SOURCE DT AND VC
-	max96712_reg_write(hub, 0x0992, 0x81);//DES DT AND VC
-	max96712_reg_write(hub, 0x09CB, 0x07);//enable 3 mappings for pipeline 3
-	max96712_reg_write(hub, 0x09ED, 0x15);// CSI2 controller 1
-	max96712_reg_write(hub, 0x09CF, 0x00);//source dt and vc
-	max96712_reg_write(hub, 0x09D0, 0xC0);//des dt and vc
-	max96712_reg_write(hub, 0x09D1, 0x01);//source dt and vc
-	max96712_reg_write(hub, 0x09D2, 0xC1);//des dt and vc
-
-	max96712_reg_write(hub, 0x090D, priv->data_type);//source data type (1E) and VC(0)
-	max96712_reg_write(hub, 0x090E, priv->data_type);//destination dt(1E) and vc(0)
-	max96712_reg_write(hub, 0x094D, priv->data_type);//SRC vc=0
-	max96712_reg_write(hub, 0x094E, (0x40 | priv->data_type));//DES: VC=1
-	max96712_reg_write(hub, 0x098D, priv->data_type);//SRC vc=0
-	max96712_reg_write(hub, 0x098E, (0x80 | priv->data_type));//DES DTVC=2
-	max96712_reg_write(hub, 0x09CD, priv->data_type);//SRC vc=0
-	max96712_reg_write(hub, 0x09CE, (0xC0 | priv->data_type));//des vc =3
 	return 0;
 }
 
@@ -683,18 +492,6 @@ static int max96705_config(struct maxim_hub_priv *priv)
 	return 0;
 }
 
-static int max_channel_mapping(struct maxim_hub_priv *priv)
-{
-#ifdef MAXIM_HUB_DEBUG
-	dev_err(priv->hub.dev, "%s() line:%d\n", __func__, __LINE__);
-#endif
-	if (priv->serial_type == SER_TYPE_MAX96705)
-		max96705_config(priv);
-	else if (priv->serial_type == SER_TYPE_MAX96701)
-		max96701_config(priv);
-
-	return 0;
-}
 
 static int max_channel_link(struct maxim_hub_priv *priv, int enable)
 {
@@ -720,56 +517,6 @@ static int max_channel_link(struct maxim_hub_priv *priv, int enable)
 	return 0;
 }
 
-static int max96712_gsml1_config(struct maxim_hub_priv *priv)
-{
-	int ret;
-#ifdef MAXIM_HUB_DEBUG
-	dev_err(priv->hub.dev, "%s() line:%d\n", __func__, __LINE__);
-#endif
-	/*1.preinit: reset_register*/
-	ret = max96712_preinit(priv);
-	if (ret) {
-		pr_err("%s(), line %d, max96712_preinit failed!\n", __func__,
-		       __LINE__);
-		return -EINVAL;
-	}
-	/*2.mipi config*/
-	ret = max96712_gsm1_mipi_config(priv);
-	if (ret) {
-		pr_err("%s(), line %d, max96712_gsm1_mipi_config failed!\n",
-		       __func__, __LINE__);
-		return -EINVAL;
-	}
-	// max96712_reg_write(&(priv->hub), 0x0006, 0x0f);
-	// max96712_reg_write(&(priv->hub), 0x0018, 0x0f);
-	/*3.fsync config*/
-	ret = max96712_fsync_config(priv, priv->hub.trig_info);
-	if (ret) {
-		pr_err("%s(), line %d, max96712_fsync_config failed!\n",
-		       __func__, __LINE__);
-		return -EINVAL;
-	}
-
-	/*4. camera_mapping*/
-	ret = max_channel_mapping(priv);
-	if (ret) {
-		pr_err("%s(), line %d, max_channel_mapping failed!\n", __func__,
-		       __LINE__);
-		return -EINVAL;
-	}
-	/*5 Disable all link & enable mipi output*/
-	ret = max_channel_link(priv, 1);
-	if (ret) {
-		pr_err("%s(), line %d, max_channel_stream failed!\n", __func__,
-		       __LINE__);
-		return -EINVAL;
-	}
-	/*6. disable mipi output*/
-	maxim_hub_set_mipi_output(&priv->hub, false);
-	/*open camera link*/
-	max96712_reg_write(&(priv->hub), 0x0006, 0x0f);
-	return 0;
-}
 
 static int maxim_hub_s_power(struct v4l2_subdev *sd, int enable)
 {
@@ -901,27 +648,22 @@ int parse_camera_serdes(struct deser_hub_dev *maxim_deser_hub,
 
 	if (!of_property_read_string(remote_ep, "serializer", &serializer)) {
 
+		dev_err(maxim_deser_hub->dev, "[yanhy]SER_TYPE=%s\n",serializer );
+
 		if (strncmp(serializer, "max96705", 8) == 0) {
-#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX96705\n");
-#endif
 			priv->serial_type = SER_TYPE_MAX96705;
 		} else if (strncmp(serializer, "max96701", 8) == 0) {
-#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX96701\n");
-#endif
 			priv->serial_type = SER_TYPE_MAX96701;
 		} else if (strncmp(serializer, "max9295", 7) == 0) {
-		#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_MAX9295\n");
-		#endif
 			priv->serial_type = SER_TYPE_MAX9295;
 		} else {
-#ifdef MAXIM_HUB_DEBUG
 			dev_err(maxim_deser_hub->dev, "SER_TYPE_INVALID\n");
-#endif
 		}
 	} else {
+		dev_err(maxim_deser_hub->dev, "[yanhy]Not Found serializer node.\n");
 		priv->serial_type = SER_TYPE_INVALID;
 		dev_err(maxim_deser_hub->dev,
 			"Invalid DT serializer  property\n");
@@ -1033,35 +775,29 @@ static int maxim_hub_parse_dt(struct i2c_client *client)
 	hub->type = DESER_TYPE_INVALID;
 	if (!of_property_read_string(np, "type", &priv->deser_type)) {
 		if (priv->deser_type != NULL) {
-			strncpy(hub->name, priv->deser_type,
-				MAX_DESER_NAME_LEN);
+			strncpy(hub->name, priv->deser_type,MAX_DESER_NAME_LEN);
 			if (strncmp(priv->deser_type, "max96722", 8) == 0) {
 				hub->src_mask = 0x0f;
 				hub->max_port = 4;
 				hub->type = DESER_TYPE_MAX96712;
-		dev_err(&client->dev, "xq max_port1=%d\n",hub->max_port );
-			} else if (strncmp(priv->deser_type, "max96712", 8) ==
-				   0) {
+				dev_err(&client->dev, "xq max_port1=%d\n",hub->max_port );
+			} else if (strncmp(priv->deser_type, "max96712", 8) == 0) {
 				hub->src_mask = 0x0f;
-				hub->max_port = 4;
+				hub->max_port = 2;
 				hub->type = DESER_TYPE_MAX96712;
-				dev_err(&client->dev, " xq max_port2=%d\n",hub->max_port );
+				dev_err(&client->dev, "[yanhy] max_port2=%d\n",hub->max_port );
 			}
 		}
 	}
 
 	/*Optional field*/
-	if (of_property_read_u32(np, "trigger-mode",
-				 &hub->trig_info.trigger_mode))
+	if (of_property_read_u32(np, "trigger-mode",&hub->trig_info.trigger_mode))
 		hub->trig_info.trigger_mode = DESER_TRIGGER_MODE_NONE;
-	if (of_property_read_u32(np, "trigger-fps",
-				 &hub->trig_info.trigger_fps))
+	if (of_property_read_u32(np, "trigger-fps",&hub->trig_info.trigger_fps))
 		hub->trig_info.trigger_fps = 25;
-	if (of_property_read_u32(np, "trigger-tx-gpio",
-				 &hub->trig_info.trigger_tx_gpio))
+	if (of_property_read_u32(np, "trigger-tx-gpio",&hub->trig_info.trigger_tx_gpio))
 		hub->trig_info.trigger_tx_gpio = 0;
-	if (of_property_read_u32(np, "trigger-rx-gpio",
-				 &hub->trig_info.trigger_rx_gpio))
+	if (of_property_read_u32(np, "trigger-rx-gpio",&hub->trig_info.trigger_rx_gpio))
 		hub->trig_info.trigger_rx_gpio = 0;
 	if (of_property_read_u32(np, "maxim,hsync-invert", &priv->hsync))
 		priv->hsync = 0;
@@ -1177,7 +913,7 @@ int maxim_deser_hub_set_internal_frame_sync(struct deser_hub_dev *deser_hub,
 	switch (deser_hub->type) {
 	case DESER_TYPE_MAX96712:
 	case DESER_TYPE_MAX96722:
-		//max96712_fsync_config(priv, trig_info);
+		max96712_fsync_config(priv, trig_info);
 		break;
 	default:
 		dev_err(priv->hub.dev, "Device type not support for now\n");
@@ -1212,6 +948,7 @@ int maxim_deser_hub_set_external_frame_sync(struct deser_hub_dev *deser_hub,
 static int maxim_hub_probe(struct i2c_client *client,
 			   const struct i2c_device_id *id)
 {
+	 pr_info("[yanhy]: maxim hub probe entry...\n");
 	int ret;
 	struct maxim_hub_priv *priv;
 	int pdb_gpio = -1;
@@ -1233,24 +970,22 @@ static int maxim_hub_probe(struct i2c_client *client,
 
 	msleep(50);
 	//power up deserializer at first
-	//if (strncmp(priv->hub.ctl_level, "fad-lis", 7) != 0) {
-		pdb_gpio = of_get_named_gpio(client->dev.of_node, "pdb-gpio", 0);
-		if (gpio_is_valid(pdb_gpio)) {
-			ret = devm_gpio_request(&client->dev, pdb_gpio,
-						dev_name(&client->dev));
-			if (ret) {
-				dev_err(&client->dev,
-					"failed to request gpio %d\n", pdb_gpio);
-				return ret;
-			}
-
-			mdelay(5);
-			gpio_direction_output(pdb_gpio, 0);
-			mdelay(5);
-			gpio_direction_output(pdb_gpio, 1);
-			mdelay(5);
+	
+	pdb_gpio = of_get_named_gpio(client->dev.of_node, "pdb-gpio", 0);
+	if (gpio_is_valid(pdb_gpio)) {
+		ret = devm_gpio_request(&client->dev, pdb_gpio,dev_name(&client->dev));
+		if (ret) {
+			dev_err(&client->dev,"failed to request gpio %d\n", pdb_gpio);
+			return ret;
 		}
-	//}
+
+		mdelay(5);
+		gpio_direction_output(pdb_gpio, 0);
+		mdelay(5);
+		gpio_direction_output(pdb_gpio, 1);
+		mdelay(5);
+	}
+	
 	msleep(500);
 
 	ret = register_subdev(priv);
@@ -1272,7 +1007,7 @@ static int maxim_hub_probe(struct i2c_client *client,
 			__func__);
 		return -EINVAL;
 	}
-         read_byte(priv);
+ 
 	pr_info("likun 0607: maxim hub probe done\n");
 	return 0;
 }
@@ -1300,7 +1035,7 @@ static struct i2c_driver maxim_derser_hub = {
 	.driver = {
 		.name = MODULE_NAME,
 		.of_match_table = of_match_ptr(maxim_of_match),
-	},
+},
 	.probe		= maxim_hub_probe,
 	.remove		= maxim_hub_remove,
 	.id_table	= maxim_deser_id,
@@ -1310,4 +1045,3 @@ module_i2c_driver(maxim_derser_hub);
 
 MODULE_DESCRIPTION("GMSL driver for maxim_deser_hub");
 MODULE_AUTHOR("jason.yin@bst.ai");
-MODULE_LICENSE("GPL");

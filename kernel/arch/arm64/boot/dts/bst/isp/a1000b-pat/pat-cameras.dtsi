@@ -23,6 +23,7 @@
     };
 
     camera1: camera@51 {
+	status = "disable";
         reg = <0x51>;
         ser-alias-id = <0x41>;
         sensor-alias-id = <0x51>;
@@ -37,6 +38,7 @@
     };
 
     camera2: camera@52 {
+	status = "disable";
         reg = <0x52>;
         ser-alias-id = <0x42>;
         sensor-alias-id = <0x52>;
@@ -51,6 +53,7 @@
     };
 
     camera3: camera@53 {
+	status = "disable";
         reg = <0x53>;
         ser-alias-id = <0x43>;
         sensor-alias-id = <0x53>;
@@ -65,6 +68,7 @@
     };
 
     camera4: camera@54 {
+	status = "disable";
         reg = <0x54>;
         ser-alias-id = <0x44>;
         sensor-alias-id = <0x54>;
@@ -77,6 +81,7 @@
     };
 
     camera5: camera@55 {
+	status = "disable";
         reg = <0x55>;
         ser-alias-id = <0x45>;
         sensor-alias-id = <0x55>;
@@ -91,6 +96,7 @@
     };
 
     camera6: camera@56 {
+	status = "disable";
         reg = <0x56>;
         ser-alias-id = <0x46>;
         sensor-alias-id = <0x56>;
@@ -104,6 +110,7 @@
     };
 
     camera7: camera@57 {
+	status = "disable";
         reg = <0x57>;
         ser-alias-id = <0x47>;
         sensor-alias-id = <0x57>;
@@ -117,6 +124,7 @@
     };
 
     camera8: camera@58 {
+        status = "disable";
         reg = <0x58>;
         ser-alias-id = <0x48>;
         sensor-alias-id = <0x58>;
@@ -131,6 +139,7 @@
     };
 
     camera9: camera@59 {
+	 status = "disable";
         reg = <0x59>;
         ser-alias-id = <0x49>;
         sensor-alias-id = <0x59>;
@@ -145,6 +154,7 @@
     };
 
     camera10: camera@5a {
+	 status = "disable";
         reg = <0x5a>;
         ser-alias-id = <0x4a>;
         sensor-alias-id = <0x5a>;
@@ -159,6 +169,7 @@
     };
 
     camera11: camera@5b {
+	 status = "disable";
         reg = <0x5b>;
         ser-alias-id = <0x4b>;
         sensor-alias-id = <0x5b>;

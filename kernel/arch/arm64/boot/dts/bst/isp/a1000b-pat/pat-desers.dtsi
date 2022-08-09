@@ -23,9 +23,9 @@
         maxim,link-mode = "GMSL2";
         pdb-gpio = <&porta 23 0>;
     };
-
+#if 1
     deser1: ti960@3d {
-        compatible = "bst,ti-deser-hub";
+        compatible = "bst,ti-deser-hub_yanhy";
         type = "ti960";
         reg = <0x3d>;
         i2c-port = <0>;
@@ -39,7 +39,7 @@
     };
 
     deser2: ti960@3c {
-        compatible = "bst,ti-deser-hub";
+        compatible = "bst,ti-deser-hub_yanhy";
         type = "ti960";
         reg = <0x3c>;
         i2c-port = <0>;
@@ -53,7 +53,7 @@
     };
 
     deser3: ti960@34 {
-        compatible = "bst,ti-deser-hub";
+        compatible = "bst,ti-deser-hub_yanhy";
         status = "disabled";
         type = "ti960";
         reg = <0x34>;
@@ -62,6 +62,7 @@
         lane-speed = <1600>;
         pdb-gpio = <&porta 20 0>;
     };
+#endif
 };
 
 #include "../common/a1000b-deser.dtsi"

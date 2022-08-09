@@ -293,6 +293,9 @@ int parse_camera_endpoint(struct camera_dev *cam_dev,
 		cam_dev->isp_data.hblank = value;
 
 	ret = of_property_read_u32(node, "lines-to-detect-bad", &value);
+	if(0x50==cam_dev->sensor_alias_id){
+	        pr_err("[yanhy]lines-to-detect-bad,ret=0x%x,value = %d, sensor_alias_id=0x%x\n", ret, value, cam_dev->sensor_alias_id);
+	}
 	if (ret == 0)
 		cam_dev->isp_data.linesAddDetBad = value;
 	else
