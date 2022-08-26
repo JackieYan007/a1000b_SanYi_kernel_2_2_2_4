@@ -21,7 +21,7 @@ make: *** [Makefile:714: .config] Error 1
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug 26 02:51:49 2022
+# Make data base, printed on Fri Aug 26 04:58:55 2022
 
 # Variables
 
@@ -49,6 +49,7 @@ CONFIG_X86_X32_ABI :=
 CLEAN_FILES = include/ksym vmlinux.symvers modules-only.symvers modules.builtin modules.builtin.modinfo modules.nsdeps compile_commands.json .thinlto-cache
 # makefile (from 'Makefile', line 1896)
 KBUILD_MODULES := 
+ 
 # makefile (from 'Makefile', line 1749)
 help-board-dirs := 
 # environment
@@ -236,6 +237,7 @@ cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) $(KERNELRELE
 # makefile (from 'Makefile', line 516)
 KBUILD_AFLAGS_KERNEL := 
 # makefile (from 'Makefile', line 1260)
+ 
 quiet_cmd_autoksyms_h = GEN     $@
 # makefile (from 'Makefile', line 454)
 LD = $(CROSS_COMPILE)ld
@@ -295,7 +297,6 @@ ELECTRON_RUN_AS_NODE = 1
 INVOCATION_ID = 28eb5881821d4e02905fec1fbba5eaf7
 # makefile (from 'scripts/Kbuild.include', line 158)
 build := -f ./scripts/Makefile.build obj
- 
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/105/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # makefile (from 'Makefile', line 5)
@@ -526,6 +527,7 @@ NAME = Dare mighty things
 # makefile (from 'Makefile', line 174)
 sub_make_done := 1
 # makefile (from 'Makefile', line 541)
+ 
 RCS_TAR_IGNORE := --exclude SCCS --exclude BitKeeper --exclude .svn --exclude CVS --exclude .pc --exclude .hg --exclude .git
 # makefile (from 'Makefile', line 1236)
 KBUILD_VMLINUX_OBJS := arch/x86/kernel/head_64.o arch/x86/kernel/head64.o arch/x86/kernel/ebda.o arch/x86/kernel/platform-quirks.o init/built-in.a usr/built-in.a arch/x86/built-in.a kernel/built-in.a certs/built-in.a mm/built-in.a fs/built-in.a ipc/built-in.a security/built-in.a crypto/built-in.a block/built-in.a lib/built-in.a arch/x86/lib/built-in.a drivers/built-in.a sound/built-in.a net/built-in.a virt/built-in.a
@@ -577,7 +579,6 @@ ARCH = $(SUBARCH)
 MAKEFLAGS = prR --no-print-directory
 # environment
 MFLAGS = -prR --no-print-directory
- 
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'scripts/Kbuild.include', line 106)
@@ -855,13 +856,13 @@ dt_binding_check: scripts_dtc
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
- 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1468):
 	$(Q)$(MAKE) $(build)=Documentation/devicetree/bindings
 
 drivers/built-in.a: descend
 #  Implicit rule search has not been done.
+ 
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1135,7 +1136,6 @@ scripts: scripts_basic scripts_dtc
 _clean_fs:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
- 
 #  File is an intermediate prerequisite.
 #  File does not exist.
 #  File has not been updated.
@@ -1245,6 +1245,7 @@ arch/x86/lib/lib.a: descend
 #  recipe to execute (from 'Makefile', line 1283):
 	
 
+ 
 _clean_arch/x86/lib:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -1423,7 +1424,6 @@ epubdocs:
 
 _clean_sound:
 #  Phony target (prerequisite of .PHONY).
- 
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
@@ -1490,6 +1490,7 @@ arch/x86/kernel/head64.o: descend
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1283):
+ 
 	
 
 crypto: prepare
@@ -1546,6 +1547,7 @@ prepare0: archprepare
 	$(Q)$(MAKE) $(build)=.
 
 _clean_crypto:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
@@ -1635,6 +1637,7 @@ prepare-objtool:
 # Load=9/32=28%, Rehash=0, Collisions=24/68=35%
 #  recipe to execute (from 'Makefile', line 708):
 	@echo >&2 '***'
+ 
 	@echo >&2 '*** Configuration file "$@" not found!'
 	@echo >&2 '***'
 	@echo >&2 '*** Please run some configurator (e.g. "make oldconfig" or'
@@ -1704,7 +1707,6 @@ help:
 	@echo  '  kselftest-merge   - Merge all the config dependencies of'
 	@echo  '		      kselftest to existing .config.'
 	@echo  ''
- 
 	@$(if $(dtstree), \
 		echo 'Devicetree:'; \
 		echo '* dtbs             - Build device tree blobs for enabled boards'; \
@@ -1781,6 +1783,7 @@ headers: include/generated/uapi/linux/version.h scripts_unifdef uapi-asm-generic
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
+ 
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1203):
@@ -1993,7 +1996,6 @@ bzImage: vmlinux
 
 _clean_block:
 #  Phony target (prerequisite of .PHONY).
- 
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
@@ -2102,6 +2104,7 @@ block/modules.order: descend
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 #  recipe to execute (from 'Makefile', line 1283):
 	
 
@@ -2286,7 +2289,6 @@ virt: prepare
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  File does not exist.
- 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1907):
 	$(Q)$(MAKE) $(build)=$@ \
@@ -2405,6 +2407,7 @@ _clean_ipc:
 	$(Q)$(MAKE) $(clean)=$(patsubst _clean_%,%,$@)
 
 tools/: FORCE
+ 
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
@@ -2561,6 +2564,6 @@ archscripts: scripts_basic
 # strcache performance: lookups = 697 / hit rate = 67%
 # hash-table stats:
 # Load=229/8192=3%, Rehash=0, Collisions=11/697=2%
-# Finished Make data base on Fri Aug 26 02:51:49 2022
+# Finished Make data base on Fri Aug 26 04:58:55 2022
 
  

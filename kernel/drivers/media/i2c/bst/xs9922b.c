@@ -280,7 +280,7 @@ static int xs9922b_s_stream(struct v4l2_subdev *subdev, int on)
 	return 0;
 }
 
-
+#if 0 //For hotlog
 /* -----------------------------------------------------------------------------
  * Deser misc perations
  */
@@ -406,7 +406,7 @@ static void register_misc_devices(struct deser_hub_dev *hub)
 		dev_err(hub->dev, "%s() %d, deser misc register Success!\n", __func__, __LINE__);
 	}
 }
-
+#endif 
 static int xs9922b_s_power(struct v4l2_subdev *sd, int enable)
 {
 	struct deser_hub_dev *hub =
@@ -415,7 +415,9 @@ static int xs9922b_s_power(struct v4l2_subdev *sd, int enable)
 	hub->deser_boot_flag = true;
 
 	//register misc device
+	#if 0 //for hotlog
 	register_misc_devices(hub);
+	#endif
 	return 0;
 }
 
@@ -466,7 +468,7 @@ static int parse_device_dt(struct deser_hub_dev *hub, struct device_node *node)
 {
 	// struct device_node *node = hub->dev->of_node;
 	const char *type_name = NULL;
-
+#if 0 // for hotlog
 	if (of_property_read_u32(node, "id", &hub->id)) {
 		dev_err(hub->dev, " Failed to find <deserx/id>\n");
 		return -EINVAL;
@@ -480,6 +482,8 @@ static int parse_device_dt(struct deser_hub_dev *hub, struct device_node *node)
 			hub->type = DESER_TYPE_XS9922B;
 		}
 	}
+#endif 
+
 	return 0;
 }
 
@@ -765,8 +769,10 @@ static int xs9922b_probe(struct i2c_client *client,
 	of_property_read_u32(hub->dev->of_node, "mode", &mode);
 	xs9922b_switch_mode(hub, mode);
 
+#if 0
 	/*Save hub pointer for misc*/
 	hubs[hub->id] = hub;
+#endif
 	return 0;
 }
 
