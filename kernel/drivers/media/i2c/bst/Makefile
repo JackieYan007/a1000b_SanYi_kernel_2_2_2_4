@@ -37,6 +37,6 @@ obj-y += ox08b_yuv.o
 obj-y += ox3c_raw.o
 obj-y += x1f_yuv.o
 obj-y += ox08b_raw.o
-
+obj-y += xs9922b.o
 #obj-y += jaguar1/
 
