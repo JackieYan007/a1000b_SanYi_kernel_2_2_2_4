@@ -457,12 +457,10 @@
     status = "okay";
     #address-cells = <1>;
     #size-cells = <0>;
-         eeprom@56 {
-                 compatible = "atmel,24c02";
-                 reg = <0x56>;
-                 pagesize = <16>;
-         };
-
+	adv7513@39 {
+		compatible = "bst,adv7513";
+		reg = <0x39>;
+	};
 
 };
 &i2c5 {
