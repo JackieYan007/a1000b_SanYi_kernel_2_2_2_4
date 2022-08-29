@@ -36,6 +36,5 @@ view1-size = <1280 720>;
 pdns-mode = <0>;
 pdns-input-view = <0>;
 hblank = <0x100>;
-/*
+
 lines-to-detect-bad = <150>;
-*/
