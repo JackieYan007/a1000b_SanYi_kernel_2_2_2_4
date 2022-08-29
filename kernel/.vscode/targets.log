@@ -21,7 +21,7 @@ make: *** [Makefile:714: .config] Error 1
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug 26 04:58:55 2022
+# Make data base, printed on Mon Aug 29 13:54:30 2022
 
 # Variables
 
@@ -49,7 +49,6 @@ CONFIG_X86_X32_ABI :=
 CLEAN_FILES = include/ksym vmlinux.symvers modules-only.symvers modules.builtin modules.builtin.modinfo modules.nsdeps compile_commands.json .thinlto-cache
 # makefile (from 'Makefile', line 1896)
 KBUILD_MODULES := 
- 
 # makefile (from 'Makefile', line 1749)
 help-board-dirs := 
 # environment
@@ -84,6 +83,7 @@ HOST_LFS_CFLAGS :=
 M16_CFLAGS :=  -m16
 # environment
 IM_CONFIG_PHASE = 1
+ 
 # makefile (from 'Makefile', line 438)
 KBUILD_HOSTLDFLAGS := $(subst ,, )
 # makefile (from 'scripts/Kbuild.include', line 59)
@@ -123,7 +123,7 @@ XZ = xz
 # makefile (from 'Makefile', line 1936)
 quiet_cmd_tags = GEN     $@
 # environment
-JOURNAL_STREAM = 8:65136
+JOURNAL_STREAM = 8:135469
 # makefile (from 'Makefile', line 1603)
 mrproper-dirs := _mrproper_scripts
 # makefile (from 'arch/x86/Makefile', line 273)
@@ -197,7 +197,7 @@ AWK = awk
 # makefile (from 'Makefile', line 1031)
 KBUILD_AFLAGS := -D__ASSEMBLY__ -fno-PIE -m64 
 # environment
-MANAGERPID = 3178
+MANAGERPID = 22352
 # makefile (from 'scripts/Kbuild.include', line 233)
 if_changed_rule = $(if $(newer-prereqs)$(cmd-check),$(rule_$(1)),@:)
 # makefile (from 'scripts/Kbuild.include', line 8)
@@ -237,7 +237,6 @@ cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) $(KERNELRELE
 # makefile (from 'Makefile', line 516)
 KBUILD_AFLAGS_KERNEL := 
 # makefile (from 'Makefile', line 1260)
- 
 quiet_cmd_autoksyms_h = GEN     $@
 # makefile (from 'Makefile', line 454)
 LD = $(CROSS_COMPILE)ld
@@ -250,7 +249,7 @@ PYTHON3 = python3
 # makefile (from 'Makefile', line 1052)
 KBUILD_USERCFLAGS := -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -m64
 # environment
-SESSION_MANAGER = local/bst-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/6024,unix/bst-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/6024
+SESSION_MANAGER = local/bst-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/22751,unix/bst-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/22751
 # makefile (from 'scripts/Kbuild.include', line 10)
 space := $(subst ,, )
 # environment
@@ -294,7 +293,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 28eb5881821d4e02905fec1fbba5eaf7
+INVOCATION_ID = 29cb2712a097416faeaa1bc5eadd86ea
 # makefile (from 'scripts/Kbuild.include', line 158)
 build := -f ./scripts/Makefile.build obj
 # environment
@@ -322,7 +321,7 @@ SUBLEVEL = 59
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 220896
+GIO_LAUNCHED_DESKTOP_FILE_PID = 656271
 # makefile (from 'Makefile', line 480)
 ZSTD = zstd
 # automatic
@@ -372,7 +371,7 @@ RETPOLINE_VDSO_CFLAGS_CLANG := -mretpoline
 # makefile (from 'arch/x86/Makefile', line 18)
 cc_stack_align4 := -mpreferred-stack-boundary=2
 # environment
-SSH_AGENT_PID = 5898
+SSH_AGENT_PID = 22713
 # environment
 PKG_CONFIG_PATH = :/usr/local/lib/pkgconfig
 # environment
@@ -423,6 +422,7 @@ KBUILD_EXTRA_WARN = $(KBUILD_ENABLE_EXTRA_GCC_CHECKS)
 # environment
 LOGNAME = bst
 # environment
+ 
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # makefile (from 'Makefile', line 1937)
 cmd_tags = $(BASH) $(srctree)/scripts/tags.sh $@
@@ -527,7 +527,6 @@ NAME = Dare mighty things
 # makefile (from 'Makefile', line 174)
 sub_make_done := 1
 # makefile (from 'Makefile', line 541)
- 
 RCS_TAR_IGNORE := --exclude SCCS --exclude BitKeeper --exclude .svn --exclude CVS --exclude .pc --exclude .hg --exclude .git
 # makefile (from 'Makefile', line 1236)
 KBUILD_VMLINUX_OBJS := arch/x86/kernel/head_64.o arch/x86/kernel/head64.o arch/x86/kernel/ebda.o arch/x86/kernel/platform-quirks.o init/built-in.a usr/built-in.a arch/x86/built-in.a kernel/built-in.a certs/built-in.a mm/built-in.a fs/built-in.a ipc/built-in.a security/built-in.a crypto/built-in.a block/built-in.a lib/built-in.a arch/x86/lib/built-in.a drivers/built-in.a sound/built-in.a net/built-in.a virt/built-in.a
@@ -758,6 +757,7 @@ stackp-flags-y := -fno-stack-protector
 # makefile (from 'Makefile', line 1586)
 DISTCLEAN_FILES = tags TAGS cscope* GPATH GTAGS GRTAGS GSYMS
 # makefile (from 'Makefile', line 478)
+ 
 LZ4 = lz4
 # environment
 LANG = C
@@ -766,7 +766,7 @@ drivers- = samples/ arch/x86/math-emu/ arch/x86/pci/ arch/x86/oprofile/ arch/x86
 # makefile (from 'scripts/Kbuild.include', line 9)
 empty := 
 # environment
-VSCODE_PID = 221420
+VSCODE_PID = 656334
 # makefile (from 'Makefile', line 1243)
 vmlinux-deps := arch/x86/kernel/vmlinux.lds arch/x86/kernel/head_64.o arch/x86/kernel/head64.o arch/x86/kernel/ebda.o arch/x86/kernel/platform-quirks.o init/built-in.a usr/built-in.a arch/x86/built-in.a kernel/built-in.a certs/built-in.a mm/built-in.a fs/built-in.a ipc/built-in.a security/built-in.a crypto/built-in.a block/built-in.a lib/built-in.a arch/x86/lib/built-in.a drivers/built-in.a sound/built-in.a net/built-in.a virt/built-in.a lib/lib.a arch/x86/lib/lib.a
 # makefile (from 'scripts/Kbuild.include', line 7)
@@ -786,7 +786,7 @@ single-targets := %.a %.i %.ko %.lds %.ll %.lst %.mod %.o %.s %.symtypes %/
 
 # Directories
 
-# . (device 66306, inode 6251000): 50 files, no impossibilities.
+# . (device 66306, inode 6251000): 51 files, no impossibilities.
 # ./arch/x86/configs/x86_64_defconfig (device 66306, inode 6273723): could not be opened.
 # ./arch/x86/configs (device 66306, inode 6275402): 7 files, no impossibilities.
 # ./arch/x86/configs/i386_defconfig (device 66306, inode 6273721): could not be opened.
@@ -794,7 +794,7 @@ single-targets := %.a %.i %.ko %.lds %.ll %.lst %.mod %.o %.s %.symtypes %/
 # ./arch/x86/configs/gki_defconfig (device 66306, inode 6273720): could not be opened.
 # ./arch/x86/configs/xen.config (device 66306, inode 6273724): could not be opened.
 
-# 57 files, no impossibilities in 7 directories.
+# 58 files, no impossibilities in 7 directories.
 
 # Implicit Rules
 
@@ -862,7 +862,6 @@ dt_binding_check: scripts_dtc
 
 drivers/built-in.a: descend
 #  Implicit rule search has not been done.
- 
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1241,11 +1240,11 @@ arch/x86/lib/lib.a: descend
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1283):
 	
 
- 
 _clean_arch/x86/lib:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -1275,7 +1274,7 @@ lib/modules.order: descend
 # Not a target:
 Makefile:
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-26 01:46:26.4525719
+#  Last modified 2022-08-26 09:46:26.4525719
 #  File has not been updated.
 
 kernel: prepare
@@ -1381,7 +1380,7 @@ sound/built-in.a: descend
 # Not a target:
 scripts/Makefile.extrawarn:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-26 01:46:30.083123576
+#  Last modified 2022-08-26 09:46:30.083123576
 #  File has been updated.
 #  Successfully updated.
 
@@ -1490,7 +1489,6 @@ arch/x86/kernel/head64.o: descend
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1283):
- 
 	
 
 crypto: prepare
@@ -1547,7 +1545,6 @@ prepare0: archprepare
 	$(Q)$(MAKE) $(build)=.
 
 _clean_crypto:
- 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
@@ -1637,7 +1634,6 @@ prepare-objtool:
 # Load=9/32=28%, Rehash=0, Collisions=24/68=35%
 #  recipe to execute (from 'Makefile', line 708):
 	@echo >&2 '***'
- 
 	@echo >&2 '*** Configuration file "$@" not found!'
 	@echo >&2 '***'
 	@echo >&2 '*** Please run some configurator (e.g. "make oldconfig" or'
@@ -1764,6 +1760,7 @@ usr: prepare
 	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \
 	$(if $(KBUILD_MIXED_TREE),,need-builtin=1) need-modorder=1
 
+ 
 archprepare: checkbin outputmakefile archheaders archscripts scripts include/config/kernel.release asm-generic include/generated/uapi/linux/version.h include/generated/utsrelease.h include/generated/autoconf.h
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -1783,7 +1780,6 @@ headers: include/generated/uapi/linux/version.h scripts_unifdef uapi-asm-generic
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
- 
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1203):
@@ -1893,7 +1889,7 @@ arch/x86/lib/modules.order: descend
 # Not a target:
 arch/x86/Makefile:
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-26 01:46:27.027685977
+#  Last modified 2022-08-26 09:46:27.027685977
 #  File has not been updated.
 
 _clean_virt:
@@ -2104,7 +2100,6 @@ block/modules.order: descend
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  recipe to execute (from 'Makefile', line 1283):
 	
 
@@ -2293,6 +2288,7 @@ virt: prepare
 #  recipe to execute (from 'Makefile', line 1907):
 	$(Q)$(MAKE) $(build)=$@ \
 	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \
+ 
 	$(if $(KBUILD_MIXED_TREE),,need-builtin=1) need-modorder=1
 
 ipc/modules.order: descend
@@ -2360,7 +2356,7 @@ compile_commands.json: scripts/clang-tools/gen_compile_commands.py arch/x86/kern
 # Not a target:
 scripts/Kbuild.include:
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-26 01:46:30.083123576
+#  Last modified 2022-08-26 09:46:30.083123576
 #  File has not been updated.
 
 _mrproper_scripts:
@@ -2407,7 +2403,6 @@ _clean_ipc:
 	$(Q)$(MAKE) $(clean)=$(patsubst _clean_%,%,$@)
 
 tools/: FORCE
- 
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
@@ -2493,7 +2488,7 @@ export_report:
 # Not a target:
 scripts/subarch.include:
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-26 01:46:30.095106212
+#  Last modified 2022-08-26 09:46:30.095106212
 #  File has not been updated.
 
 block: prepare
@@ -2558,12 +2553,12 @@ archscripts: scripts_basic
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 229 / storage = 3252 B / avg = 14 B
-# current buf: size = 8162 B / used = 3252 B / count = 229 / avg = 14 B
+# strcache buffers: 1 (0) / strings = 230 / storage = 3268 B / avg = 14 B
+# current buf: size = 8162 B / used = 3268 B / count = 230 / avg = 14 B
 
-# strcache performance: lookups = 697 / hit rate = 67%
+# strcache performance: lookups = 698 / hit rate = 67%
 # hash-table stats:
-# Load=229/8192=3%, Rehash=0, Collisions=11/697=2%
-# Finished Make data base on Fri Aug 26 04:58:55 2022
+# Load=230/8192=3%, Rehash=0, Collisions=11/698=2%
+# Finished Make data base on Mon Aug 29 13:54:30 2022
 
  

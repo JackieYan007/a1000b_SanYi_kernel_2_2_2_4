@@ -189,6 +189,11 @@ static void xs9922b_switch_mode(struct deser_hub_dev *hub , int mode)
 		ret = xs9922_write_array(hub->i2c_client,
 					xs9922_1080p_4lanes_25fps_1500M);
 	}
+	else if( mode == 3)
+	{
+		ret = xs9922_write_array(hub->i2c_client,
+					xs9922_720p_4lanes_30fps_1500M);
+	}
 	else
 	{
 		dev_err(hub->dev, "%s get mode err\n", __func__);

@@ -70,11 +70,12 @@
 
 &i2c4 {
     camera4: camera@54 {
-	/*status = "disable";*/
+	    /*status = "disable";*/
         reg = <0x54>;
         ser-alias-id = <0x44>;
         sensor-alias-id = <0x54>;
-        #include "../cameras/ahd_yuv_1920x1080.dtsi"
+        #include "../cameras/ahd_yuv_1920x1080.dtsi" /*SuoTuo*/
+        /*#include "../cameras/ahd_yuv_1280x720.dtsi"*/
         port {
             camera_4_out: endpoint@0 {
                 remote-endpoint = <&deser_1_in_0>;

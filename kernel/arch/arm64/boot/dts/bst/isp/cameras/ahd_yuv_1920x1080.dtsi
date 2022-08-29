@@ -4,6 +4,8 @@
   view1:    -
   view2:    -
 */
+
+/* // SuoTuo Raw
 compatible = "bst,ahd-isp";
 data-type = <0x1e>;
 
@@ -16,3 +18,24 @@ view0-size = <1920 1080>;
 pdns-mode = <0>;
 pdns-input-view = <0>;
 hblank = <0x400>;
+*/
+
+compatible = "bst,ahd-isp";
+data-type = <0x1e>;
+
+size = <1280 720>;
+dvp-dummy = <0xaaa0>;
+
+view0-fmt = <1>;
+view0-size = <1280 720>;
+view0-crop = <0 720 0 1280>;
+
+view1-fmt = <1>;
+view1-size = <1280 720>;
+
+pdns-mode = <0>;
+pdns-input-view = <0>;
+hblank = <0x100>;
+/*
+lines-to-detect-bad = <150>;
+*/

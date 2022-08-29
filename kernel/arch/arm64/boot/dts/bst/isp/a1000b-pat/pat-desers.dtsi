@@ -36,14 +36,14 @@
         compatible = "bst,xs9922b";
         reg = <0x30>;
         reset-gpio = <&porta 5 0>;
-        mode = <0x02>;
+        mode = <0x03>;
      };
 
     deser2: XS9922@32 {
         compatible = "bst,xs9922b";
         reg = <0x32>;
         reset-gpio = <&porta 3 0>;
-        mode = <0x02>;
+        mode = <0x03>;
      };
 
 };
