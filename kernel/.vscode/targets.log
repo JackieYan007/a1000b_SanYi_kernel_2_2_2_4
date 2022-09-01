@@ -21,7 +21,7 @@ make: *** [Makefile:714: .config] Error 1
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 29 13:54:30 2022
+# Make data base, printed on Tue Aug 30 09:38:11 2022
 
 # Variables
 
@@ -35,6 +35,7 @@ cmd_and_fixdep = $(cmd); scripts/basic/fixdep $(depfile) $@ '$(make-cmd)' > $(do
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
+ 
 # makefile (from 'Makefile', line 1035)
 LDFLAGS_vmlinux :=  --build-id=sha1
 # environment
@@ -83,7 +84,6 @@ HOST_LFS_CFLAGS :=
 M16_CFLAGS :=  -m16
 # environment
 IM_CONFIG_PHASE = 1
- 
 # makefile (from 'Makefile', line 438)
 KBUILD_HOSTLDFLAGS := $(subst ,, )
 # makefile (from 'scripts/Kbuild.include', line 59)
@@ -123,7 +123,7 @@ XZ = xz
 # makefile (from 'Makefile', line 1936)
 quiet_cmd_tags = GEN     $@
 # environment
-JOURNAL_STREAM = 8:135469
+JOURNAL_STREAM = 8:120083
 # makefile (from 'Makefile', line 1603)
 mrproper-dirs := _mrproper_scripts
 # makefile (from 'arch/x86/Makefile', line 273)
@@ -170,6 +170,7 @@ cc_stack_align8 := -mpreferred-stack-boundary=3
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # makefile (from 'Makefile', line 1032)
 KBUILD_CFLAGS := -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Wno-format-security -std=gnu89 -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -fcf-protection=none -m64 -falign-jumps=1 -falign-loops=1 -mno-80387 -mno-fp-ret-in-387 -mpreferred-stack-boundary=3 -mskip-rax-setup  -mno-red-zone -mcmodel=kernel -Wno-sign-compare -fno-asynchronous-unwind-tables -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -Wno-address-of-packed-member --param=allow-store-data-races=0  -Wframe-larger-than= -fno-stack-protector    -fomit-frame-pointer  -Wdeclaration-after-statement -Wvla -Wno-pointer-sign       -fno-strict-overflow -fno-stack-check  -Werror=date-time    
+ 
 # makefile (from 'Makefile', line 1753)
 boards-per-dir = $(sort $(notdir $(wildcard $(srctree)/arch/$(SRCARCH)/configs/$*/*_defconfig)))
 # makefile (from 'Makefile', line 2041)
@@ -197,7 +198,7 @@ AWK = awk
 # makefile (from 'Makefile', line 1031)
 KBUILD_AFLAGS := -D__ASSEMBLY__ -fno-PIE -m64 
 # environment
-MANAGERPID = 22352
+MANAGERPID = 19690
 # makefile (from 'scripts/Kbuild.include', line 233)
 if_changed_rule = $(if $(newer-prereqs)$(cmd-check),$(rule_$(1)),@:)
 # makefile (from 'scripts/Kbuild.include', line 8)
@@ -249,7 +250,7 @@ PYTHON3 = python3
 # makefile (from 'Makefile', line 1052)
 KBUILD_USERCFLAGS := -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89 -m64
 # environment
-SESSION_MANAGER = local/bst-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/22751,unix/bst-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/22751
+SESSION_MANAGER = local/bst-ThinkPad-E15-Gen-2:@/tmp/.ICE-unix/20096,unix/bst-ThinkPad-E15-Gen-2:/tmp/.ICE-unix/20096
 # makefile (from 'scripts/Kbuild.include', line 10)
 space := $(subst ,, )
 # environment
@@ -281,6 +282,7 @@ existing-targets :=
 # makefile (from 'Makefile', line 273)
 version_h := include/generated/uapi/linux/version.h
 # makefile (from 'Makefile', line 261)
+ 
 VPATH := .
 # environment
 SNAP_VERSION = e4503b30
@@ -293,7 +295,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 29cb2712a097416faeaa1bc5eadd86ea
+INVOCATION_ID = 87f7c6bfa95a4daeb23f6be83aac240a
 # makefile (from 'scripts/Kbuild.include', line 158)
 build := -f ./scripts/Makefile.build obj
 # environment
@@ -321,7 +323,7 @@ SUBLEVEL = 59
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 656271
+GIO_LAUNCHED_DESKTOP_FILE_PID = 70538
 # makefile (from 'Makefile', line 480)
 ZSTD = zstd
 # automatic
@@ -371,7 +373,7 @@ RETPOLINE_VDSO_CFLAGS_CLANG := -mretpoline
 # makefile (from 'arch/x86/Makefile', line 18)
 cc_stack_align4 := -mpreferred-stack-boundary=2
 # environment
-SSH_AGENT_PID = 22713
+SSH_AGENT_PID = 20046
 # environment
 PKG_CONFIG_PATH = :/usr/local/lib/pkgconfig
 # environment
@@ -422,7 +424,6 @@ KBUILD_EXTRA_WARN = $(KBUILD_ENABLE_EXTRA_GCC_CHECKS)
 # environment
 LOGNAME = bst
 # environment
- 
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # makefile (from 'Makefile', line 1937)
 cmd_tags = $(BASH) $(srctree)/scripts/tags.sh $@
@@ -452,6 +453,7 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 KBUILD_VERBOSE = 0
 # makefile (from 'Makefile', line 477)
 LZMA = lzma
+ 
 # makefile (from 'Makefile', line 518)
 KBUILD_AFLAGS_MODULE := -DMODULE
 # makefile (from 'Makefile', line 667)
@@ -613,6 +615,7 @@ SUBARCH := x86
 # makefile (from 'Makefile', line 460)
 STRIP = $(CROSS_COMPILE)strip
 # environment
+ 
 QT_ACCESSIBILITY = 1
 # makefile (from 'Makefile', line 679)
 CFLAGS_GCOV := -fprofile-arcs -ftest-coverage -fno-tree-loop-im -Wno-maybe-uninitialized
@@ -729,6 +732,7 @@ KBUILD_CFLAGS_KERNEL :=
 # makefile (from 'Makefile', line 1216)
 vmlinux-alldirs := Documentation arch/x86 arch/x86/lib arch/x86/math-emu arch/x86/oprofile arch/x86/pci arch/x86/power arch/x86/video block certs crypto drivers fs init ipc kernel lib mm net samples security sound usr virt
 # environment
+ 
 GJS_DEBUG_OUTPUT = stderr
 # makefile (from 'Makefile', line 689)
 RETPOLINE_CFLAGS_GCC := -mindirect-branch=thunk-extern -mindirect-branch-register
@@ -757,7 +761,6 @@ stackp-flags-y := -fno-stack-protector
 # makefile (from 'Makefile', line 1586)
 DISTCLEAN_FILES = tags TAGS cscope* GPATH GTAGS GRTAGS GSYMS
 # makefile (from 'Makefile', line 478)
- 
 LZ4 = lz4
 # environment
 LANG = C
@@ -766,7 +769,7 @@ drivers- = samples/ arch/x86/math-emu/ arch/x86/pci/ arch/x86/oprofile/ arch/x86
 # makefile (from 'scripts/Kbuild.include', line 9)
 empty := 
 # environment
-VSCODE_PID = 656334
+VSCODE_PID = 70606
 # makefile (from 'Makefile', line 1243)
 vmlinux-deps := arch/x86/kernel/vmlinux.lds arch/x86/kernel/head_64.o arch/x86/kernel/head64.o arch/x86/kernel/ebda.o arch/x86/kernel/platform-quirks.o init/built-in.a usr/built-in.a arch/x86/built-in.a kernel/built-in.a certs/built-in.a mm/built-in.a fs/built-in.a ipc/built-in.a security/built-in.a crypto/built-in.a block/built-in.a lib/built-in.a arch/x86/lib/built-in.a drivers/built-in.a sound/built-in.a net/built-in.a virt/built-in.a lib/lib.a arch/x86/lib/lib.a
 # makefile (from 'scripts/Kbuild.include', line 7)
@@ -786,7 +789,7 @@ single-targets := %.a %.i %.ko %.lds %.ll %.lst %.mod %.o %.s %.symtypes %/
 
 # Directories
 
-# . (device 66306, inode 6251000): 51 files, no impossibilities.
+# . (device 66306, inode 6251000): 52 files, no impossibilities.
 # ./arch/x86/configs/x86_64_defconfig (device 66306, inode 6273723): could not be opened.
 # ./arch/x86/configs (device 66306, inode 6275402): 7 files, no impossibilities.
 # ./arch/x86/configs/i386_defconfig (device 66306, inode 6273721): could not be opened.
@@ -794,7 +797,7 @@ single-targets := %.a %.i %.ko %.lds %.ll %.lst %.mod %.o %.s %.symtypes %/
 # ./arch/x86/configs/gki_defconfig (device 66306, inode 6273720): could not be opened.
 # ./arch/x86/configs/xen.config (device 66306, inode 6273724): could not be opened.
 
-# 58 files, no impossibilities in 7 directories.
+# 59 files, no impossibilities in 7 directories.
 
 # Implicit Rules
 
@@ -818,6 +821,7 @@ kselftest-%: FORCE
 tools/%: FORCE
 #  recipe to execute (from 'Makefile', line 2034):
 	$(Q)mkdir -p $(objtree)/tools
+ 
 	$(Q)$(MAKE) LDFLAGS= MAKEFLAGS="$(tools_silent) $(filter --j% -j,$(MAKEFLAGS))" O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/ $*
 
 # 5 implicit rules, 0 (0.0%) terminal.
@@ -961,6 +965,7 @@ mrproper: clean _mrproper_scripts
 #  File does not exist.
 #  File has not been updated.
 # variable set hash-table stats:
+ 
 # Load=1/32=3%, Rehash=0, Collisions=0/3=0%
 #  recipe to execute (from 'Makefile', line 1610):
 	$(call cmd,rmfiles)
@@ -1106,6 +1111,7 @@ arch/x86/modules.order: descend
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1283):
 	
+ 
 
 arch/x86/kernel/ebda.o: descend
 #  Implicit rule search has not been done.
@@ -1240,7 +1246,6 @@ arch/x86/lib/lib.a: descend
 #  Implicit rule search has not been done.
 #  File is an intermediate prerequisite.
 #  Modification time never checked.
- 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1283):
 	
@@ -1274,6 +1279,7 @@ lib/modules.order: descend
 # Not a target:
 Makefile:
 #  Implicit rule search has not been done.
+ 
 #  Last modified 2022-08-26 09:46:26.4525719
 #  File has not been updated.
 
@@ -1424,6 +1430,7 @@ epubdocs:
 _clean_sound:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
+ 
 #  File is an intermediate prerequisite.
 #  File does not exist.
 #  File has not been updated.
@@ -1588,6 +1595,7 @@ xmldocs:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1769):
+ 
 	$(Q)$(MAKE) $(build)=Documentation $@
 
 security/modules.order: descend
@@ -1739,6 +1747,7 @@ help:
 	@echo  '  make C=1   [targets] Check re-compiled c source with $$CHECK'
 	@echo  '                       (sparse by default)'
 	@echo  '  make C=2   [targets] Force check of all c source with $$CHECK'
+ 
 	@echo  '  make RECORDMCOUNT_WARN=1 [targets] Warn about ignored mcount sections'
 	@echo  '  make W=n   [targets] Enable extra build checks, n=1,2,3 where'
 	@echo  '		1: warnings which may be relevant and do not occur too often'
@@ -1760,7 +1769,6 @@ usr: prepare
 	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \
 	$(if $(KBUILD_MIXED_TREE),,need-builtin=1) need-modorder=1
 
- 
 archprepare: checkbin outputmakefile archheaders archscripts scripts include/config/kernel.release asm-generic include/generated/uapi/linux/version.h include/generated/utsrelease.h include/generated/autoconf.h
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -2027,6 +2035,7 @@ clean: _clean_Documentation _clean_arch/x86 _clean_arch/x86/lib _clean_arch/x86/
 # variable set hash-table stats:
 # Load=1/32=3%, Rehash=0, Collisions=0/2=0%
 #  recipe to execute (from 'Makefile', line 1917):
+ 
 	$(call cmd,rmfiles)
 	@find $(if $(KBUILD_EXTMOD), $(KBUILD_EXTMOD), .) $(RCS_FIND_IGNORE) \
 		\( -name '*.[aios]' -o -name '*.ko' -o -name '.*.cmd' \
@@ -2286,9 +2295,9 @@ virt: prepare
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 1907):
+ 
 	$(Q)$(MAKE) $(build)=$@ \
 	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \
- 
 	$(if $(KBUILD_MIXED_TREE),,need-builtin=1) need-modorder=1
 
 ipc/modules.order: descend
@@ -2488,6 +2497,7 @@ export_report:
 # Not a target:
 scripts/subarch.include:
 #  Implicit rule search has not been done.
+ 
 #  Last modified 2022-08-26 09:46:30.095106212
 #  File has not been updated.
 
@@ -2553,12 +2563,12 @@ archscripts: scripts_basic
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 230 / storage = 3268 B / avg = 14 B
-# current buf: size = 8162 B / used = 3268 B / count = 230 / avg = 14 B
+# strcache buffers: 1 (0) / strings = 231 / storage = 3291 B / avg = 14 B
+# current buf: size = 8162 B / used = 3291 B / count = 231 / avg = 14 B
 
-# strcache performance: lookups = 698 / hit rate = 67%
+# strcache performance: lookups = 699 / hit rate = 66%
 # hash-table stats:
-# Load=230/8192=3%, Rehash=0, Collisions=11/698=2%
-# Finished Make data base on Mon Aug 29 13:54:30 2022
+# Load=231/8192=3%, Rehash=0, Collisions=11/699=2%
+# Finished Make data base on Tue Aug 30 09:38:11 2022
 
  

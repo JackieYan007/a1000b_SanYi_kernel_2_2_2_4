@@ -1763,7 +1763,7 @@
         */
         qspi1_pinctrl: qspi1_pinctrl {
             mux {
-                pins = "qspi1_cs1";
+                pins = "qspi1_io0", "qspi1_io1";
                 function = "gpio";
             };
         };

@@ -27,7 +27,6 @@ set -e;  echo '  SYSHDR  arch/x86/include/generated/uapi/asm/unistd_32.h';  sh '
 set -e;  echo '  SYSHDR  arch/x86/include/generated/uapi/asm/unistd_64.h';  sh './arch/x86/entry/syscalls/syscallhdr.sh' 'arch/x86/entry/syscalls/syscall_64.tbl' 'arch/x86/include/generated/uapi/asm/unistd_64.h' 'common,64' '' ''; printf '%s\n' 'cmd_arch/x86/include/generated/uapi/asm/unistd_64.h := sh '\''./arch/x86/entry/syscalls/syscallhdr.sh'\'' '\''arch/x86/entry/syscalls/syscall_64.tbl'\'' '\''arch/x86/include/generated/uapi/asm/unistd_64.h'\'' '\''common,64'\'' '\'''\'' '\'''\''' > arch/x86/include/generated/uapi/asm/.unistd_64.h.cmd
 set -e;  echo '  SYSHDR  arch/x86/include/generated/uapi/asm/unistd_x32.h';  sh './arch/x86/entry/syscalls/syscallhdr.sh' 'arch/x86/entry/syscalls/syscall_64.tbl' 'arch/x86/include/generated/uapi/asm/unistd_x32.h' 'common,x32' '' '__X32_SYSCALL_BIT'; printf '%s\n' 'cmd_arch/x86/include/generated/uapi/asm/unistd_x32.h := sh '\''./arch/x86/entry/syscalls/syscallhdr.sh'\'' '\''arch/x86/entry/syscalls/syscall_64.tbl'\'' '\''arch/x86/include/generated/uapi/asm/unistd_x32.h'\'' '\''common,x32'\'' '\'''\'' '\''__X32_SYSCALL_BIT'\''' > arch/x86/include/generated/uapi/asm/.unistd_x32.h.cmd
 :
- 
 make -f ./scripts/Makefile.build obj=scripts/basic
  
 set -e;  echo '  HOSTCC  scripts/basic/fixdep';  gcc -Wp,-MMD,scripts/basic/.fixdep.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89         -o scripts/basic/fixdep scripts/basic/fixdep.c   ; scripts/basic/fixdep scripts/basic/.fixdep.d scripts/basic/fixdep 'gcc -Wp,-MMD,scripts/basic/.fixdep.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89         -o scripts/basic/fixdep scripts/basic/fixdep.c   ' > scripts/basic/.fixdep.cmd; rm -f scripts/basic/.fixdep.d
@@ -65,14 +64,12 @@ set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/ioctls.h';  echo "#
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/ipcbuf.h';  echo "#include <asm-generic/ipcbuf.h>" > arch/x86/include/generated/uapi/asm/ipcbuf.h
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/param.h';  echo "#include <asm-generic/param.h>" > arch/x86/include/generated/uapi/asm/param.h
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/poll.h';  echo "#include <asm-generic/poll.h>" > arch/x86/include/generated/uapi/asm/poll.h
- 
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/resource.h';  echo "#include <asm-generic/resource.h>" > arch/x86/include/generated/uapi/asm/resource.h
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/socket.h';  echo "#include <asm-generic/socket.h>" > arch/x86/include/generated/uapi/asm/socket.h
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/sockios.h';  echo "#include <asm-generic/sockios.h>" > arch/x86/include/generated/uapi/asm/sockios.h
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/termbits.h';  echo "#include <asm-generic/termbits.h>" > arch/x86/include/generated/uapi/asm/termbits.h
  
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/termios.h';  echo "#include <asm-generic/termios.h>" > arch/x86/include/generated/uapi/asm/termios.h
- 
 set -e;  echo '  WRAP    arch/x86/include/generated/uapi/asm/types.h';  echo "#include <asm-generic/types.h>" > arch/x86/include/generated/uapi/asm/types.h
 :
  

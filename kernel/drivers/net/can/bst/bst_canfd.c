@@ -1866,13 +1866,26 @@ static int bst_canfd_probe(struct platform_device *pdev)
 	struct resource *res;
 	void __iomem *addr;
 	int irq, ret;
-
+    int stb_gpio = -1;
+    
+    
 	/* 判断是canfd-0还是canfd-1 */
 	if (of_property_read_u32(dev->of_node, "bst-index", &node)) {
 		return -EINVAL;
 	}
 	pr_debug("%s %d, canfd[%u]\n", __FUNCTION__, __LINE__, node);
 
+	stb_gpio = of_get_named_gpio(dev->of_node, "stb-gpio", 0);
+	if (gpio_is_valid(stb_gpio)) {
+		ret = devm_gpio_request(dev, stb_gpio,dev_name(dev));
+		if (ret) {
+			dev_info(dev, "failed to request gpio %d\n", stb_gpio);
+			return ret;
+		}
+
+		gpio_direction_output(stb_gpio, 0);
+	}
+    
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	addr = devm_ioremap_resource(dev, res);
 	irq = platform_get_irq(pdev, 0);

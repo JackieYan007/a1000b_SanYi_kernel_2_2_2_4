@@ -381,19 +381,19 @@
     status = "okay";
     can0_transceiver_pinctrl: can0_transceiver_pinctrl {
         mux {
-            //pins = "gpio_107";
+            pins = "gpio_107";
             function = "gpio";
         };
     };
     can1_transceiver_pinctrl: can1_transceiver_pinctrl {
         mux {
-            //pins = "gpio_30";
+            pins = "gpio_30";
             function = "gpio";
         };
     };
     can2_transceiver_pinctrl: can2_transceiver_pinctrl {
         mux {
-            //pins = "jtag_tdo";
+            pins = "jtag_tdo";
             function = "gpio";
         };
     };
@@ -483,18 +483,31 @@
 
 &canfd0 {
     status = "okay";
-    reset-gpios = <&porta 13 0>;
+    reset-gpios = <&portd 11 0>;
     reset-active-low;
     pinctrl-names = "default";
+    stb-gpio = <&portd 2 0>;
 	pinctrl-0 = <&can0_pinctrl &can0_transceiver_pinctrl>;
     memory-region = <&bst_canfd_reserved>;
 };
+
 &canfd1 {
-    status = "disable";
+    status = "okay";
+    reset-gpios = <&porta 30 0>;
+    reset-active-low;
+    pinctrl-names = "default";
+    stb-gpio = <&portd 3 0>;
+	pinctrl-0 = <&can1_pinctrl &can1_transceiver_pinctrl>;
 };
 &canfd2 {
-    status = "disable";
+    status = "okay";
+    reset-gpios = <&portb 4 0>;
+    reset-active-low;
+    pinctrl-names = "default";
+	pinctrl-0 = <&can2_pinctrl &can2_transceiver_pinctrl>;
 };
+
+
 &gpio0 {
     status = "okay";
 
@@ -530,6 +543,31 @@
     };
 };
 
+&gmac1 {
+    status = "okay";
+    mac-mode = "rgmii";
+    phy-handle = <&eth_phy1>;
+    extend-op = <15>;
+    pinctrl-names = "default";
+    pinctrl-0 = <&rgmii1_pinctrl>;
+    mdio {
+        compatible = "snps,dwmac-mdio";
+        #address-cells = <1>;
+        #size-cells = <0>;
+        eth_phy1: eth_phy1@1 {
+            compatible = "marvell,88E1510", "ethernet-phy-id0022.1620", "ethernet-phy-ieee802.3-c22";//0x00221620 ksz9031
+            device_type = "ethernet-phy";
+            /* On - Link, Blink - Activity, Off - No Link - Dual LED mode*/
+            marvell,reg-init = <3 0x10 0 0x101e>;
+            max-speed = <1000>;
+            reg = <0x1>;
+            reset-gpios = <&porta 8 1>;
+            reset-assert-us = <20000>;
+            reset-deassert-us = <20000>;
+        };
+    };
+};
+
 &qspi0 {
     status = "okay";
     //wp_mode;
@@ -553,6 +591,31 @@
             label = "nor0_part1";
         };
     };
+};
+
+&qspi1 {
+    status = "okay";
+    //wp_mode;
+    qspi1-nor1@0 {
+        #address-cells = <1>;
+        #size-cells = <1>;
+        spi-rx-bus-width = <4>;
+        spi-tx-bus-width = <4>;
+        compatible = "jedec,spi-nor";
+        status = "okay";
+        spi-max-frequency =<4000000>;
+        reg = <0>;
+        mode = <0>;
+
+        partition@0 {
+            reg = <0 0x1e00000>;
+            label = "nor1_part0";
+        };  
+        partition@1000000 {
+            reg = <0x1e00000 0x200000>;
+            label = "nor1_part1";
+        };  
+    };  
 };
 
 &spi0 {
