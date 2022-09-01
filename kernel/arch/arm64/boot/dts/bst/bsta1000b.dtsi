@@ -1170,7 +1170,7 @@
 			compatible = "snps,dw-apb-ssi";
 			#address-cells = <1>;
 			#size-cells = <0>;
-			reg = <0x0 0x2000c000 0x1000>;
+			reg = <0x0 0x2000c000 0x800>;
 			interrupt-parent = <&gic400>;
 			interrupts = <GIC_SPI 219 IRQ_TYPE_LEVEL_HIGH>;
 			clocks= <&clkc LSP0_SPI0_W_GCLK>,
@@ -1188,7 +1188,7 @@
 			compatible = "snps,dw-apb-ssi";
 			#address-cells = <1>;
 			#size-cells = <0>;
-			reg = <0x0 0x2000d000 0x1000>;
+			reg = <0x0 0x2000d000 0x800>;
 			interrupt-parent = <&gic400>;
 			interrupts = <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>;
 			clocks= <&clkc LSP1_SPI1_W_GCLK>,
@@ -1201,22 +1201,78 @@
 			pinctrl-0 = <&spi1_pinctrl>;
 		};
 
-		spi2: spi@20022000 {
+		spi2: spi@2000c800 {
+			status = "disable";	
+			compatible = "snps,dw-apb-ssi";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0x0 0x2000c800 0x800>;
+			interrupt-parent = <&gic400>;
+			interrupts = <GIC_SPI 244 IRQ_TYPE_LEVEL_HIGH>;
+			clocks= <&clkc LSP0_SPI0_W_GCLK>,
+					<&clkc LSP0_SPI0_P_GCLK>;
+			clock-names = "spi_wclk", "spi_pclk";
+			num-cs = <1>;
+			bus-num = <2>;
+            cs-gpios = <&portb 8 0>;
+            pinctrl-names = "default";
+	        pinctrl-0 = <&spi2_pinctrl &spi2_cs_pinctrl>;
+		};
+
+		spi3: spi@2000d800 {
+			status = "disable";	
+			compatible = "snps,dw-apb-ssi";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0x0 0x2000d800 0x800>;
+			interrupt-parent = <&gic400>;
+			interrupts = <GIC_SPI 245 IRQ_TYPE_LEVEL_HIGH>;
+			clocks= <&clkc LSP1_SPI1_W_GCLK>,
+					<&clkc LSP1_SPI1_P_GCLK>;
+			clock-names = "spi_wclk", "spi_pclk";
+			num-cs = <1>;
+			bus-num = <3>;
+            cs-gpios = <&portb 16 0>;
+            pinctrl-names = "default";
+			pinctrl-0 = <&spi3_pinctrl  &spi3_cs_pinctrl>;
+		};
+
+        /*spi4 only as slave mode,IOMUX spi0*/
+		spi4: spi@20022000 {
 			status = "disable";
 			compatible = "snps,dw-apb-ssi";
 			#address-cells = <1>;
 			#size-cells = <0>;
-			reg = <0x0 0x20022000 0x1000>;
+			reg = <0x0 0x20022000 0x800>;
 			interrupt-parent = <&gic400>;
 			interrupts = <GIC_SPI 226 IRQ_TYPE_LEVEL_HIGH>;
 			clocks= <&clkc LSP0_SPI0_W_GCLK>,
 					<&clkc LSP0_SPI0_P_GCLK>;
 			clock-names = "spi_wclk", "spi_pclk";
 			num-cs = <1>;
-			bus-num = <0>;
+			bus-num = <4>;
             cs-gpios = <&portc 2 0>;
             pinctrl-names = "default";
-	        pinctrl-0 = <&spi0_pinctrl>;
+	        pinctrl-0 = <&spi4_pinctrl>;
+		};
+
+        /*spi5 only as slave mode,IOMUX spi1*/
+		spi5: spi@20023000 {
+			status = "disable";
+			compatible = "snps,dw-apb-ssi";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0x0 0x20023000 0x800>;
+			interrupt-parent = <&gic400>;
+			interrupts = <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>;
+			clocks= <&clkc LSP1_SPI1_W_GCLK>,
+					<&clkc LSP1_SPI1_P_GCLK>;
+			clock-names = "spi_wclk", "spi_pclk";
+			num-cs = <1>;
+			bus-num = <5>;
+            cs-gpios = <&portc 6 0>;
+            pinctrl-names = "default";
+	        pinctrl-0 = <&spi5_pinctrl>;
 		};
 
 		i2s0:i2s-play@2000e000 {
@@ -1662,6 +1718,44 @@
                 function = "spi1";
             };
         };
+
+        spi2_pinctrl: spi2_pinctrl {
+            mux {
+                pins = "spi2_miso", "spi2_mosi", "spi2_sclk"; //"spi0_cs",
+                function = "spi0";
+            };
+        };
+        spi2_cs_pinctrl: spi2_cs_pinctrl {
+            mux {
+                pins = "uart0_rts";
+                function = "gpio";
+            };
+        };
+        spi3_pinctrl: spi3_pinctrl {
+            mux {
+                pins = "spi3_miso", "spi3_mosi", "spi3_sclk"; //"spi1_cs",
+                function = "spi1";
+            };
+        };
+        spi3_cs_pinctrl: spi3_cs_pinctrl {
+            mux {
+                pins = "uart2_rts";
+                function = "gpio";
+            };
+        };
+        spi4_pinctrl: spi4_pinctrl {
+            mux {
+                pins = "spi0_miso", "spi0_mosi", "spi0_sclk"; //"spi0_cs",
+                function = "spi0_s";
+            };
+        };
+        spi5_pinctrl: spi5_pinctrl {
+            mux {
+                pins = "spi1_miso", "spi1_mosi", "spi1_sclk"; //"spi1_cs",
+                function = "spi1_s";
+            };
+        };
+
         i2c0_pinctrl: i2c0_pinctrl {
             mux {
                 pins = "i2c0_scl", "i2c0_sda";

@@ -521,7 +521,7 @@
                
 
 &gmac0 {
-    status = "okay";
+    status = "disable";
     mac-mode = "rgmii";
     phy-handle = <&eth_phy0>;
     extend-op = <11>;
@@ -555,15 +555,13 @@
         #address-cells = <1>;
         #size-cells = <0>;
         eth_phy1: eth_phy1@1 {
-            compatible = "marvell,88E1510", "ethernet-phy-id0022.1620", "ethernet-phy-ieee802.3-c22";//0x00221620 ksz9031
+            compatible = "ethernet-phy-id0022.1620", "ethernet-phy-id0022.1620", "ethernet-phy-ieee802.3-c22";
             device_type = "ethernet-phy";
-            /* On - Link, Blink - Activity, Off - No Link - Dual LED mode*/
-            marvell,reg-init = <3 0x10 0 0x101e>;
-            max-speed = <1000>;
             reg = <0x1>;
-            reset-gpios = <&porta 8 1>;
-            reset-assert-us = <20000>;
-            reset-deassert-us = <20000>;
+            rxc-skew-ps = <3000>;
+			rxdv-skew-ps = <0>;
+			txc-skew-ps = <3000>;
+			txen-skew-ps = <0>;
         };
     };
 };
@@ -618,7 +616,7 @@
     };  
 };
 
-&spi0 {
+&spi2 {
     status = "okay";
     slave@0 {
             compatible = "spidev";
@@ -626,8 +624,27 @@
             spi-max-frequency = <400000>;
     };
 };
-&spi1 {
+&spi3 {
     status = "okay";
+    slave@0 {
+            compatible = "spidev";
+            reg = <0>;
+            spi-max-frequency = <400000>;
+    };
+};
+
+&spi4 {
+    status = "okay";
+    spi-slave;
+    slave@0 {
+            compatible = "spidev";
+            reg = <0>;
+            spi-max-frequency = <400000>;
+    };
+};
+&spi5 {
+    status = "okay";
+    spi-slave;
     slave@0 {
             compatible = "spidev";
             reg = <0>;
